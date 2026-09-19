@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.components.ChimpButton
+import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.macawBlue500
 import io.github.mobdevchimp.ui.theme.wolfGray100
 
@@ -55,14 +56,11 @@ fun GetStartedScreen(modifier: Modifier) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun GetStartedScreenPreview() {
-    MaterialTheme {
-        Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
-            GetStartedScreen(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(16.dp)
-            )
+    MobdevchimpTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPaddings ->
+            GetStartedScreen(modifier = Modifier
+                .padding(innerPaddings)
+                .padding(16.dp))
         }
     }
 }
