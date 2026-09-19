@@ -18,6 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.components.ChimpButton
+import io.github.mobdevchimp.ui.theme.macawBlue500
+import io.github.mobdevchimp.ui.theme.wolfGray100
 
 @Composable
 fun GetStartedScreen(modifier: Modifier) {
@@ -32,6 +34,7 @@ fun GetStartedScreen(modifier: Modifier) {
             fontSize = MaterialTheme.typography.displayLarge.fontSize,
             fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
             fontWeight = MaterialTheme.typography.displayLarge.fontWeight,
+            color = macawBlue500,
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -41,6 +44,7 @@ fun GetStartedScreen(modifier: Modifier) {
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
             fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
             fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+            color = wolfGray100,
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.weight(1f))
