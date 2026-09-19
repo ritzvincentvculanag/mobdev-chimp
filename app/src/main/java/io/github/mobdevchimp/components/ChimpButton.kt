@@ -41,8 +41,8 @@ fun ChimpButton(
     foreground: Color = macawBlue300,
     background: Color = macawBlue500,
     textColor: Color = Color.White,
-    icon: ImageVector? = null,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    icon: ImageVector? = null
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -89,8 +89,9 @@ fun ChimpButton(
                     text = text.uppercase(),
                     textAlign = TextAlign.Center,
                     letterSpacing = 2.sp,
-                    fontFamily = MaterialTheme.typography.labelMedium.fontFamily,
-                    fontWeight = MaterialTheme.typography.labelMedium.fontWeight,
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
                     color = textColor
                 )
             }
