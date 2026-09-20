@@ -47,7 +47,7 @@ fun ChimpButton(
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val currentOffset by animateDpAsState(
-        label = "buttonOffset",
+        label = "AnimationButtonPress",
         targetValue = if (isPressed) 4.dp else 0.dp
     )
 
