@@ -29,7 +29,8 @@ class MainActivity : ComponentActivity() {
                         )
                         ChimpTextField(
                             state = nameState,
-                            placeholder = "Email",
+                            placeholder = "Full name",
+                            singleLine = false,
                         )
                     }
                 }
