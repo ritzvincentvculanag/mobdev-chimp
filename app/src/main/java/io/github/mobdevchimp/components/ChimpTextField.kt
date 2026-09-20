@@ -37,7 +37,6 @@ import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.NunitoFontFamily
 import io.github.mobdevchimp.ui.theme.macawBlue300
 import io.github.mobdevchimp.ui.theme.wolfGray100
-import io.github.mobdevchimp.ui.theme.wolfGray300
 
 
 @Composable
