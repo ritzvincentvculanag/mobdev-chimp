@@ -90,7 +90,11 @@ fun ChimpTextField(
             interactionSource = interactionSource,
             textStyle = textStyle,
             cursorBrush = SolidColor(focusedBorderColor),
-            lineLimits = if (singleLine) TextFieldLineLimits.SingleLine else TextFieldLineLimits.Default,
+            lineLimits = if (singleLine) {
+                TextFieldLineLimits.SingleLine
+            } else {
+                TextFieldLineLimits.Default
+            },
             keyboardOptions = keyboardOptions.copy(
                 imeAction = if (singleLine) {
                     ImeAction.Next
