@@ -4,13 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.ui.Modifier
-import io.github.mobdevchimp.components.ChimpTextField
+import androidx.compose.ui.unit.dp
+import io.github.mobdevchimp.ui.screen.GetStartedScreen
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,21 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MobdevchimpTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPaddings ->
-                    Column(modifier = Modifier.padding(innerPaddings)) {
-                        val emailState = rememberTextFieldState(initialText = "")
-                        val nameState = rememberTextFieldState(initialText = "")
-                        ChimpTextField(
-                            state = emailState,
-                            placeholder = "Email",
-                        )
-                        ChimpTextField(
-                            state = nameState,
-                            placeholder = "Full name",
-                            singleLine = false,
-                        )
-                    }
-                }
+                GetStartedScreen(modifier = Modifier.systemBarsPadding().padding(16.dp))
             }
         }
     }
