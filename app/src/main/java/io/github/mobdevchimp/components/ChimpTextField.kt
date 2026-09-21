@@ -93,7 +93,10 @@ fun ChimpTextField(
             lineLimits = if (singleLine) {
                 TextFieldLineLimits.SingleLine
             } else {
-                TextFieldLineLimits.Default
+                TextFieldLineLimits.MultiLine(
+                    minHeightInLines = 10,
+                    maxHeightInLines = 10
+                )
             },
             keyboardOptions = keyboardOptions.copy(
                 imeAction = if (singleLine) {
@@ -102,7 +105,6 @@ fun ChimpTextField(
                     keyboardOptions.imeAction
                 }
             ),
-            modifier = Modifier.fillMaxWidth(),
             decorator = { innerTextField ->
                 Box(modifier = Modifier.fillMaxWidth()) {
                     if (state.text.isEmpty()) {
@@ -119,6 +121,18 @@ fun ChimpTextField(
     }
 }
 
+@Composable
+fun ChimpTextFieldLarge(
+    state: TextFieldState,
+    placeholder: String,
+) {
+    ChimpTextField(
+        state = state,
+        placeholder = placeholder,
+        singleLine = false
+    )
+}
+
 @Preview
 @Composable
 private fun ChimpTextFieldPreview() {
@@ -126,7 +140,7 @@ private fun ChimpTextFieldPreview() {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPaddings ->
             Column(modifier = Modifier.padding(innerPaddings)) {
                 val state = rememberTextFieldState(initialText = "")
-                ChimpTextField(
+                ChimpTextFieldLarge(
                     state = state,
                     placeholder = "Email",
                 )
