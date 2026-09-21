@@ -1,6 +1,8 @@
 package io.github.mobdevchimp.components
 
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -26,9 +28,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
@@ -48,7 +52,11 @@ fun ChimpButton(
     val isPressed by interactionSource.collectIsPressedAsState()
     val currentOffset by animateDpAsState(
         label = "AnimationButtonPress",
-        targetValue = if (isPressed) 4.dp else 0.dp
+        targetValue = if (isPressed) 4.dp else 0.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioLowBouncy,
+            stiffness = Spring.StiffnessHigh,
+        )
     )
 
     Box(
@@ -70,7 +78,12 @@ fun ChimpButton(
         ChimpButtonContainer(
             color = foreground,
             radius = radius,
-            modifier = Modifier.offset(y = currentOffset)
+            modifier = Modifier.offset {
+                IntOffset(
+                    x = 0,
+                    y = currentOffset.roundToPx()
+                )
+            }
         ) {
             Row(
                 modifier = Modifier.fillMaxSize(),
@@ -88,10 +101,10 @@ fun ChimpButton(
                 Text(
                     text = text.uppercase(),
                     textAlign = TextAlign.Center,
-                    letterSpacing = 2.sp,
+                    letterSpacing = 1.2.sp,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+                    fontWeight = FontWeight.Bold,
                     color = textColor
                 )
             }
