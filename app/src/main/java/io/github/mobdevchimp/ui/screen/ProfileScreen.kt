@@ -47,9 +47,11 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
         bottomBar = {
+            //All navigation bar has no actions for now
             NavigationBar(
                 containerColor = macawBlue100
             ) {
+                //Study
                 NavigationBarItem(
                     selected = false,
                     onClick = {},
@@ -63,6 +65,7 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                         indicatorColor = macawBlue200
                     )
                 )
+                //Create
                 NavigationBarItem(
                     selected = false,
                     onClick = {},
@@ -76,6 +79,7 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                         indicatorColor = macawBlue200
                     )
                 )
+                //Profile
                 NavigationBarItem(
                     selected = true,
                     onClick = {},
@@ -182,7 +186,7 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
     }
 }
 
-
+// =====================
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun ProfileScreenPreview(){
