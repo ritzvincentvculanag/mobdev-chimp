@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -45,11 +46,19 @@ fun MainScreen() {
         NavHost(
             navController = navController,
             startDestination = Screen.Dashboard.route,
-            modifier = Modifier.padding(innerPaddings).padding(16.dp)
+            modifier = Modifier.padding(innerPaddings)
         ) {
             composable(route = Screen.Dashboard.route) { DashboardScreen() }
             composable(route = Screen.CreateDeck.route) { CreateDeckScreen() }
             composable(route = Screen.Profile.route) { ProfileScreen() }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun MainScreenPreview() {
+    MobdevchimpTheme {
+        MainScreen()
     }
 }
