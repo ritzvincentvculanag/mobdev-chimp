@@ -11,14 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,60 +25,13 @@ import io.github.mobdevchimp.components.ChimpButtonIcon
 import io.github.mobdevchimp.components.ChimpCardAnalytics
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.eelBlack300
-import io.github.mobdevchimp.ui.theme.macawBlue100
 import io.github.mobdevchimp.ui.theme.macawBlue200
-import io.github.mobdevchimp.ui.theme.macawBlue500
 import io.github.mobdevchimp.ui.theme.wolfGray100
 
 @Composable
 fun ProfileScreen(modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        bottomBar = {
-            NavigationBar(
-                containerColor = macawBlue100
-            ) {
-                NavigationBarItem(
-                    selected = false,
-                    onClick = {},
-                    icon = { Icon(Icons.Default.Star, contentDescription = "Study") },
-                    label = { Text("Study") },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = macawBlue500,
-                        selectedTextColor = macawBlue500,
-                        unselectedIconColor = macawBlue500,
-                        unselectedTextColor = macawBlue500,
-                        indicatorColor = macawBlue200
-                    )
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = {},
-                    icon = { Icon(Icons.Default.Create, contentDescription = "Create") },
-                    label = { Text("Create") },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = macawBlue500,
-                        selectedTextColor = macawBlue500,
-                        unselectedIconColor = macawBlue500,
-                        unselectedTextColor = macawBlue500,
-                        indicatorColor = macawBlue200
-                    )
-                )
-                NavigationBarItem(
-                    selected = true,
-                    onClick = {},
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-                    label = { Text("Profile") },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = macawBlue500,
-                        selectedTextColor = macawBlue500,
-                        unselectedIconColor = macawBlue500,
-                        unselectedTextColor = macawBlue500,
-                        indicatorColor = macawBlue200
-                    )
-                )
-            }
-        }
     ) { innerPadding ->
         Column(
             modifier = Modifier
