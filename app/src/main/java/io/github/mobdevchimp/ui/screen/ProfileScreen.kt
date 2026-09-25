@@ -138,6 +138,7 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                         )
                     }
                     //Edit button
+
                     FilledIconButton(
                         onClick = {}, //No action for now
                         colors = IconButtonDefaults.filledIconButtonColors(

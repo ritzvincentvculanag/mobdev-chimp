@@ -134,7 +134,7 @@ fun ChimpButton(
 }
 
 @Composable
-private fun ChimpButtonIcon(
+fun ChimpButtonIcon(
     icon: ImageVector,
     size: Dp = 48.dp,
     radius: Dp = 12.dp,
