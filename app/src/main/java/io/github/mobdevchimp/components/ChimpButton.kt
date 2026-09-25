@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -132,6 +134,56 @@ fun ChimpButton(
 }
 
 @Composable
+private fun ChimpButtonIcon(
+    icon: ImageVector,
+    size: Dp = 48.dp,
+    radius: Dp = 12.dp,
+    foreground: Color = macawBlue300,
+    background: Color = macawBlue500,
+    iconTint: Color = Color.White,
+    contentDescription: String? = null,
+    onClick: () -> Unit
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val currentOffset = rememberPressOffset(interactionSource)
+
+    Box(
+        modifier = Modifier
+            .size(width = size, height = size + 4.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = onClick
+            ),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        ChimpButtonContainer(
+            color = background,
+            radius = radius,
+            modifier = Modifier.padding(top = 4.dp).size(size)
+        )
+        ChimpButtonContainer(
+            color = foreground,
+            radius = radius,
+            modifier = Modifier
+                .size(size)
+                .offset {
+                    IntOffset (
+                        x = 0,
+                        y = currentOffset.roundToPx()
+                    )
+                }
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = contentDescription,
+                tint = iconTint
+            )
+        }
+    }
+}
+
+@Composable
 private fun ChimpButtonContainer(
     color: Color,
     radius: Dp,
@@ -150,5 +202,6 @@ private fun ChimpButtonContainer(
 @Composable
 private fun ChimpButtonPreview() {
     MobdevchimpTheme {
+        ChimpButtonIcon(icon = Icons.Default.PlayArrow) { }
     }
 }
