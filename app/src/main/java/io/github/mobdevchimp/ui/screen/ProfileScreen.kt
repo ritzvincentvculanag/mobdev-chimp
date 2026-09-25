@@ -10,15 +10,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.FilledIconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -28,14 +24,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.mobdevchimp.components.ChimpButtonIcon
 import io.github.mobdevchimp.components.ChimpCardAnalytics
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
-import io.github.mobdevchimp.ui.theme.eelBlack200
 import io.github.mobdevchimp.ui.theme.eelBlack300
 import io.github.mobdevchimp.ui.theme.macawBlue100
 import io.github.mobdevchimp.ui.theme.macawBlue200
@@ -47,11 +42,9 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
         bottomBar = {
-            //All navigation bar has no actions for now
             NavigationBar(
                 containerColor = macawBlue100
             ) {
-                //Study
                 NavigationBarItem(
                     selected = false,
                     onClick = {},
@@ -65,7 +58,6 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                         indicatorColor = macawBlue200
                     )
                 )
-                //Create
                 NavigationBarItem(
                     selected = false,
                     onClick = {},
@@ -79,7 +71,6 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                         indicatorColor = macawBlue200
                     )
                 )
-                //Profile
                 NavigationBarItem(
                     selected = true,
                     onClick = {},
@@ -102,15 +93,12 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                 .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            //Banner
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(140.dp)
                     .background(macawBlue200)
             )
-
-            //Profile info & cards container
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -137,35 +125,15 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                             color = wolfGray100
                         )
                     }
-                    //Edit button
-                    FilledIconButton(
-                        onClick = {}, //No action for now
-                        colors = IconButtonDefaults.filledIconButtonColors(
-                            containerColor = macawBlue500,
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.size(44.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Edit,
-                            contentDescription = "Edit Profile"
-                        )
-                    }
+                    ChimpButtonIcon(icon = Icons.Default.Edit) { }
                 }
-
                 Spacer(modifier = Modifier.height(16.dp))
-
-                //Daily Streak Card using ChimpCard
                 ChimpCardAnalytics(
                     data = 12,
                     title = "Daily Streak",
                     modifier = Modifier.fillMaxWidth()
                 )
-
                 Spacer(modifier = Modifier.height(16.dp))
-
-                //Decks and Cards
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -186,7 +154,6 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
     }
 }
 
-// =====================
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun ProfileScreenPreview(){
