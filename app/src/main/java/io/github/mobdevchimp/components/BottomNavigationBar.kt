@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import io.github.mobdevchimp.model.NavigationItem
 import io.github.mobdevchimp.model.Screen
 import io.github.mobdevchimp.ui.theme.macawBlue100
+import io.github.mobdevchimp.ui.theme.macawBlue200
 import io.github.mobdevchimp.ui.theme.macawBlue500
 
 @Composable
@@ -39,7 +40,7 @@ fun BottomNavigationBar(navController: NavController) {
         )
     )
 
-    NavigationBar {
+    NavigationBar(containerColor = macawBlue100) {
         navigationItems.forEachIndexed { index, item ->
             NavigationBarItem(
                 selected = selectedNavigationIndex.intValue == index,
@@ -51,7 +52,10 @@ fun BottomNavigationBar(navController: NavController) {
                 },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = macawBlue500,
-                    indicatorColor = macawBlue100
+                    selectedTextColor = macawBlue500,
+                    unselectedIconColor = macawBlue200,
+                    unselectedTextColor = macawBlue200,
+                    indicatorColor = macawBlue100,
                 )
             )
         }
