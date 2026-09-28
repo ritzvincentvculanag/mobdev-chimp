@@ -9,6 +9,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,6 +41,10 @@ import androidx.compose.ui.unit.sp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.macawBlue300
 import io.github.mobdevchimp.ui.theme.macawBlue500
+import io.github.mobdevchimp.ui.theme.swanGray100
+import io.github.mobdevchimp.ui.theme.swanGray200
+import io.github.mobdevchimp.ui.theme.swanGray300
+import io.github.mobdevchimp.ui.theme.wolfGray100
 
 @Composable
 private fun rememberPressOffset(interactionSource: MutableInteractionSource): Dp {
@@ -120,7 +125,6 @@ fun ChimpButton(
                 Text(
                     text = text.uppercase(),
                     textAlign = TextAlign.Center,
-                    letterSpacing = 1.2.sp,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                     fontWeight = FontWeight.Bold,
@@ -129,6 +133,27 @@ fun ChimpButton(
             }
         }
     }
+}
+
+@Composable
+fun ChimpButtonOutlined(
+    text: String,
+    radius: Dp = 12.dp,
+    foreground: Color = Color.White,
+    background: Color = swanGray300,
+    textColor: Color = macawBlue300,
+    onClick: () -> Unit,
+    icon: ImageVector? = null
+) {
+    ChimpButton(
+        text = text,
+        radius = radius,
+        foreground = foreground,
+        background = background,
+        textColor = textColor,
+        onClick = onClick,
+        icon = icon
+    )
 }
 
 @Composable
@@ -158,7 +183,9 @@ fun ChimpButtonIcon(
         ChimpButtonContainer(
             color = background,
             radius = radius,
-            modifier = Modifier.padding(top = 4.dp).size(size)
+            modifier = Modifier
+                .padding(top = 4.dp)
+                .size(size)
         )
         ChimpButtonContainer(
             color = foreground,
@@ -166,7 +193,7 @@ fun ChimpButtonIcon(
             modifier = Modifier
                 .size(size)
                 .offset {
-                    IntOffset (
+                    IntOffset(
                         x = 0,
                         y = currentOffset.roundToPx()
                     )
@@ -200,6 +227,16 @@ private fun ChimpButtonContainer(
 @Composable
 private fun ChimpButtonPreview() {
     MobdevchimpTheme {
-        ChimpButtonIcon(icon = Icons.Default.PlayArrow) { }
+        Column {
+            ChimpButtonIcon(icon = Icons.Default.PlayArrow) { }
+            ChimpButton(
+                text = "Normal Button",
+                onClick = {}
+            )
+            ChimpButtonOutlined(
+                text = "Outlined Button",
+                onClick = {}
+            )
+        }
     }
 }
