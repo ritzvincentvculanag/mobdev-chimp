@@ -37,14 +37,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.macawBlue300
 import io.github.mobdevchimp.ui.theme.macawBlue500
-import io.github.mobdevchimp.ui.theme.swanGray100
-import io.github.mobdevchimp.ui.theme.swanGray200
 import io.github.mobdevchimp.ui.theme.swanGray300
-import io.github.mobdevchimp.ui.theme.wolfGray100
 
 @Composable
 private fun rememberPressOffset(interactionSource: MutableInteractionSource): Dp {
