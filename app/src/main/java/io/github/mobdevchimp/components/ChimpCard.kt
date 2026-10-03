@@ -113,6 +113,34 @@ fun ChimpCardAnalytics(
 
 @Composable
 fun ChimpCardFlip(
+    front: @Composable () -> Unit,
+    back: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    initialFlipped: Boolean = false,
+    onFlippedChange: ((Boolean) -> Unit)? = null,
+    animationSpec: AnimationSpec<Float> = ChimpCardDefaults.flipAnimationSpec,
+    cameraDistance: Dp = ChimpCardDefaults.cameraDistance,
+    onClickLabel: String? = null
+) {
+    var flipped by rememberSaveable { mutableStateOf(initialFlipped) }
+
+    ChimpCardFlip(
+        flipped = flipped,
+        onFlippedChange = {
+            flipped = it
+            onFlippedChange?.invoke(it)
+        },
+        front = front,
+        back = back,
+        modifier = modifier,
+        animationSpec = animationSpec,
+        cameraDistance = cameraDistance,
+        onClickLabel = onClickLabel
+    )
+}
+
+@Composable
+fun ChimpCardFlip(
     flipped: Boolean,
     onFlippedChange: (Boolean) -> Unit,
     front: @Composable () -> Unit,
