@@ -4,6 +4,7 @@ import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,6 +12,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +22,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ShortNavigationBarArrangement
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -47,9 +51,9 @@ import io.github.mobdevchimp.ui.theme.swanGray300
 private object ChimpCardDefaults {
     val borderWidth: Dp = 2.dp
     val borderColor: Color = swanGray300
-    val borderShape: Shape = RoundedCornerShape(12.dp)
-    val paddingValues: PaddingValues = PaddingValues(16.dp)
+    val contentPadding: PaddingValues = PaddingValues(16.dp)
     val containerColor: Color = swanGray100
+    val shape: Shape = RoundedCornerShape(12.dp)
     val cameraDistance: Dp = 12.dp
     val flipAnimationSpec: AnimationSpec<Float> = tween(
         durationMillis = 500,
@@ -60,46 +64,28 @@ private object ChimpCardDefaults {
 @Composable
 fun ChimpCardContainer(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = ChimpCardDefaults.containerColor,
+    shape: Shape = ChimpCardDefaults.shape,
+    containerColor: Color = ChimpCardDefaults.containerColor,
     borderColor: Color = ChimpCardDefaults.borderColor,
+    contentPadding: PaddingValues = ChimpCardDefaults.contentPadding,
+    contentAlignment: Alignment = Alignment.Center,
     content: @Composable () -> Unit
 ) {
-    Box(
-        modifier = modifier
-            .background(
-                color = backgroundColor,
-                shape = ChimpCardDefaults.borderShape
-            )
-            .border(
-                color = borderColor,
-                shape = ChimpCardDefaults.borderShape,
-                width = ChimpCardDefaults.borderWidth
-            )
+    Surface(
+        modifier = modifier,
+        shape = shape,
+        color = containerColor,
+        border = BorderStroke(
+            width = ChimpCardDefaults.borderWidth,
+            color = borderColor
+        )
     ) {
-        content()
-    }
-}
-
-@Composable
-fun ChimpCardAnalytics(
-    data: Number,
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    ChimpCardContainer {
-        Text(
-            text = data.toString(),
-            fontSize = 28.sp,
-            fontWeight = FontWeight.ExtraBold,
-            color = macawBlue500
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = title.uppercase(),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            color = eelBlack100
-        )
+        Box(
+            modifier = Modifier.padding(contentPadding),
+            contentAlignment = contentAlignment
+        ) {
+            content()
+        }
     }
 }
 
@@ -110,8 +96,6 @@ fun ChimpCardFlip(
     modifier: Modifier = Modifier,
     isFlipped: Boolean? = null,
     onFlip: ((Boolean) -> Unit)? = null,
-    durationMillis: Int = 500,
-    cameraDistance: Float = 12f
 ) {
 
     var internalFlipped by rememberSaveable { mutableStateOf(false) }
@@ -122,17 +106,14 @@ fun ChimpCardFlip(
     val rotation by animateFloatAsState(
         label = "AnimationCardFlip",
         targetValue = if (flipped) 180f else 0f,
-        animationSpec = tween(
-            durationMillis = durationMillis,
-            easing = FastOutSlowInEasing
-        )
+        animationSpec = ChimpCardDefaults.flipAnimationSpec
     )
 
     ChimpCardContainer(
         modifier = modifier
             .graphicsLayer {
                 rotationY = rotation
-                this.cameraDistance = cameraDistance * density
+//                cameraDistance = ChimpCardDefaults.cameraDistance * density
             }
             .clickable(
                 interactionSource = interactionSource,
@@ -163,6 +144,30 @@ fun ChimpCardFlip(
         }
     }
 }
+
+@Composable
+fun ChimpCardAnalytics(
+    data: Number,
+    title: String,
+    modifier: Modifier = Modifier
+) {
+    ChimpCardContainer {
+        Text(
+            text = data.toString(),
+            fontSize = 28.sp,
+            fontWeight = FontWeight.ExtraBold,
+            color = macawBlue500
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = title.uppercase(),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            color = eelBlack100
+        )
+    }
+}
+
 
 
 
