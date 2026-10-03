@@ -1,7 +1,12 @@
 package io.github.mobdevchimp.components
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,9 +19,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -49,8 +61,54 @@ fun ChimpCardAnalytics(
 }
 
 @Composable
-fun ChimpCardFlip(modifier: Modifier = Modifier) {
+fun ChimpCardFlip(
+    front: @Composable () -> Unit,
+    back: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    isFlipped: Boolean? = null,
+    onFlip: ((Boolean) -> Unit)? = null,
+    durationMillis: Int = 500,
+    cameraDistance: Float = 12f
+) {
 
+    var internalFlipped by rememberSaveable { mutableStateOf(false) }
+    val interactionSource = remember { MutableInteractionSource() }
+    val flipped = isFlipped ?: internalFlipped
+
+    val density = LocalDensity.current.density
+    val rotation by animateFloatAsState(
+        label = "AnimationCardFlip",
+        targetValue = if (flipped) 180f else 0f,
+        animationSpec = tween(
+            durationMillis = durationMillis,
+            easing = FastOutSlowInEasing
+        )
+    )
+
+    ChimpCardContainer(
+        modifier = modifier
+            .graphicsLayer {
+                rotationY = rotation
+                this.cameraDistance = cameraDistance * density
+            }
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = {
+                    val newValue = !flipped
+                    if (isFlipped == null) internalFlipped = newValue
+                    onFlip?.invoke(newValue)
+                }
+            )
+    ) {
+        if (rotation <= 90f) {
+            Box { front() }
+        } else {
+            Box(modifier = Modifier.graphicsLayer { rotationY = 180f }) {
+                back()
+            }
+        }
+    }
 }
 
 @Composable
@@ -87,6 +145,10 @@ fun ChimpCardContainer(
 private fun ChimpCardAnalyticsContainerPreview() {
     MobdevchimpTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPaddings ->
+            ChimpCardFlip(
+                front = { ChimpCardContainer { Text("Hi! I'm front!") } },
+                back = { ChimpCardContainer { Text("Hi! I'm back!") } }
+            )
             ChimpCardAnalytics(
                 data = 28,
                 title = "Day Streak",
