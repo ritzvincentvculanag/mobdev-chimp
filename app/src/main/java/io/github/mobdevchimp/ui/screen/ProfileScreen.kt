@@ -75,7 +75,7 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 ChimpCardAnalytics(
-                    data = 12,
+                    value = 12,
                     title = "Daily Streak",
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -85,12 +85,12 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     ChimpCardAnalytics(
-                        data = 4,
+                        value = 4,
                         title = "Decks",
                         modifier = Modifier.weight(1f)
                     )
                     ChimpCardAnalytics(
-                        data = 28,
+                        value = 28,
                         title = "Cards",
                         modifier = Modifier.weight(1f)
                     )

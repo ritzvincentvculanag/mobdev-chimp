@@ -5,24 +5,16 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ShortNavigationBarArrangement
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -90,6 +82,33 @@ fun ChimpCardContainer(
 }
 
 @Composable
+fun ChimpCardAnalytics(
+    value: Number,
+    title: String,
+    modifier: Modifier = Modifier
+) {
+    ChimpCardContainer(modifier = modifier) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Text(
+                text = value.toString(),
+                fontSize = 28.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = macawBlue500
+            )
+            Text(
+                text = title.uppercase(),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = eelBlack100
+            )
+        }
+    }
+}
+
+@Composable
 fun ChimpCardFlip(
     front: @Composable () -> Unit,
     back: @Composable () -> Unit,
@@ -145,28 +164,7 @@ fun ChimpCardFlip(
     }
 }
 
-@Composable
-fun ChimpCardAnalytics(
-    data: Number,
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    ChimpCardContainer {
-        Text(
-            text = data.toString(),
-            fontSize = 28.sp,
-            fontWeight = FontWeight.ExtraBold,
-            color = macawBlue500
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = title.uppercase(),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            color = eelBlack100
-        )
-    }
-}
+
 
 
 
@@ -181,7 +179,7 @@ private fun ChimpCardAnalyticsContainerPreview() {
                 back = { Text("Hi! I'm back!") }
             )
             ChimpCardAnalytics(
-                data = 28,
+                value = 28,
                 title = "Day Streak",
                 modifier = Modifier
                     .padding(innerPaddings)
