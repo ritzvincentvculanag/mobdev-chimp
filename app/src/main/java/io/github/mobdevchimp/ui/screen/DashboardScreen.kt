@@ -13,6 +13,8 @@ import io.github.mobdevchimp.components.ChimpCardFlip
 fun DashboardScreen() {
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         ChimpCardFlip(
+            flipped = false,
+            onFlippedChange = {},
             front = { Text("Hi! I'm front!")  },
             back = { Text("Hi! I'm back!") }
         )

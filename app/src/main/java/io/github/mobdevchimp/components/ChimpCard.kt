@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,10 +26,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -110,81 +113,54 @@ fun ChimpCardAnalytics(
 
 @Composable
 fun ChimpCardFlip(
+    flipped: Boolean,
+    onFlippedChange: (Boolean) -> Unit,
     front: @Composable () -> Unit,
     back: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    isFlipped: Boolean? = null,
-    onFlip: ((Boolean) -> Unit)? = null,
+    animationSpec: AnimationSpec<Float> = ChimpCardDefaults.flipAnimationSpec,
+    cameraDistance: Dp = ChimpCardDefaults.cameraDistance,
+    onClickLabel: String? = null
 ) {
-
-    var internalFlipped by rememberSaveable { mutableStateOf(false) }
-    val interactionSource = remember { MutableInteractionSource() }
-    val flipped = isFlipped ?: internalFlipped
-
-    val density = LocalDensity.current.density
     val rotation by animateFloatAsState(
-        label = "AnimationCardFlip",
         targetValue = if (flipped) 180f else 0f,
-        animationSpec = ChimpCardDefaults.flipAnimationSpec
+        animationSpec = animationSpec,
+        label = "AnimationCardFlip"
     )
+    val showFront by remember { derivedStateOf { rotation <= 90f } }
+    val cameraDistancePx = with(LocalDensity.current) { cameraDistance.toPx() }
+    val interactionSource = remember { MutableInteractionSource() }
 
     ChimpCardContainer(
         modifier = modifier
             .graphicsLayer {
                 rotationY = rotation
-//                cameraDistance = ChimpCardDefaults.cameraDistance * density
+                this.cameraDistance = cameraDistancePx
             }
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
-                onClick = {
-                    val newValue = !flipped
-                    if (isFlipped == null) internalFlipped = newValue
-                    onFlip?.invoke(newValue)
-                }
+                onClickLabel = onClickLabel,
+                role = Role.Button,
+                onClick = { onFlippedChange(!flipped) }
             )
     ) {
-        if (rotation <= 90f) {
+        if (showFront) {
             Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
-            ) { front() }
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                front()
+            }
         } else {
             Box(
-                contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .fillMaxSize()
-                    .graphicsLayer {
-                        rotationY = 180f
-                    }
+                    .graphicsLayer { rotationY = 180f },
+                contentAlignment = Alignment.Center
             ) {
                 back()
             }
-        }
-    }
-}
-
-
-
-
-
-
-@Preview
-@Composable
-private fun ChimpCardAnalyticsContainerPreview() {
-    MobdevchimpTheme {
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPaddings ->
-            ChimpCardFlip(
-                front = { Text("Hi! I'm front!") },
-                back = { Text("Hi! I'm back!") }
-            )
-            ChimpCardAnalytics(
-                value = 28,
-                title = "Day Streak",
-                modifier = Modifier
-                    .padding(innerPaddings)
-                    .padding(16.dp)
-            )
         }
     }
 }
