@@ -49,6 +49,11 @@ fun ChimpCardAnalytics(
 }
 
 @Composable
+fun ChimpCardFlip(modifier: Modifier = Modifier) {
+
+}
+
+@Composable
 fun ChimpCardContainer(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
@@ -66,7 +71,9 @@ fun ChimpCardContainer(
             )
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
