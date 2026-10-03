@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.eelBlack100
 import io.github.mobdevchimp.ui.theme.macawBlue500
+import io.github.mobdevchimp.ui.theme.swanGray300
 
 @Composable
 fun ChimpCardAnalytics(
@@ -124,6 +125,7 @@ fun ChimpCardFlip(
 @Composable
 fun ChimpCardContainer(
     modifier: Modifier = Modifier,
+    color: Color = swanGray300,
     content: @Composable () -> Unit
 ) {
     Box(
@@ -134,7 +136,7 @@ fun ChimpCardContainer(
             )
             .border(
                 width = 2.dp,
-                color = Color(0xE5E7EBFF),
+                color = color,
                 shape = RoundedCornerShape(12.dp)
             )
     ) {
