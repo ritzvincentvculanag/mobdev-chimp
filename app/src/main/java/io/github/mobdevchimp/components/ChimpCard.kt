@@ -117,7 +117,9 @@ fun ChimpCardContainer(
     content: @Composable () -> Unit
 ) {
     Box(
+        contentAlignment = Alignment.Center,
         modifier = modifier
+            .fillMaxSize()
             .background(
                 color = Color.White,
                 shape = RoundedCornerShape(12.dp)
@@ -146,8 +148,8 @@ private fun ChimpCardAnalyticsContainerPreview() {
     MobdevchimpTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPaddings ->
             ChimpCardFlip(
-                front = { ChimpCardContainer { Text("Hi! I'm front!") } },
-                back = { ChimpCardContainer { Text("Hi! I'm back!") } }
+                front = { Text("Hi! I'm front!") },
+                back = {  Text("Hi! I'm back!") }
             )
             ChimpCardAnalytics(
                 data = 28,
