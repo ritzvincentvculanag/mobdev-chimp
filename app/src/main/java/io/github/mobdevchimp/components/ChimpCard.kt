@@ -58,6 +58,29 @@ private object ChimpCardDefaults {
 }
 
 @Composable
+fun ChimpCardContainer(
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = ChimpCardDefaults.containerColor,
+    borderColor: Color = ChimpCardDefaults.borderColor,
+    content: @Composable () -> Unit
+) {
+    Box(
+        modifier = modifier
+            .background(
+                color = backgroundColor,
+                shape = ChimpCardDefaults.borderShape
+            )
+            .border(
+                color = borderColor,
+                shape = ChimpCardDefaults.borderShape,
+                width = ChimpCardDefaults.borderWidth
+            )
+    ) {
+        content()
+    }
+}
+
+@Composable
 fun ChimpCardAnalytics(
     data: Number,
     title: String,
@@ -141,27 +164,7 @@ fun ChimpCardFlip(
     }
 }
 
-@Composable
-fun ChimpCardContainer(
-    modifier: Modifier = Modifier,
-    color: Color = swanGray300,
-    content: @Composable () -> Unit
-) {
-    Box(
-        modifier = modifier
-            .background(
-                color = Color.White,
-                shape = RoundedCornerShape(12.dp)
-            )
-            .border(
-                width = 2.dp,
-                color = color,
-                shape = RoundedCornerShape(12.dp)
-            )
-    ) {
-        content()
-    }
-}
+
 
 @Preview
 @Composable
