@@ -102,9 +102,19 @@ fun ChimpCardFlip(
             )
     ) {
         if (rotation <= 90f) {
-            Box { front() }
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxSize()
+            ) { front() }
         } else {
-            Box(modifier = Modifier.graphicsLayer { rotationY = 180f }) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .graphicsLayer {
+                        rotationY = 180f
+                    }
+            ) {
                 back()
             }
         }
@@ -117,9 +127,7 @@ fun ChimpCardContainer(
     content: @Composable () -> Unit
 ) {
     Box(
-        contentAlignment = Alignment.Center,
         modifier = modifier
-            .fillMaxSize()
             .background(
                 color = Color.White,
                 shape = RoundedCornerShape(12.dp)
@@ -130,15 +138,7 @@ fun ChimpCardContainer(
                 shape = RoundedCornerShape(12.dp)
             )
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            content()
-        }
+        content()
     }
 }
 
@@ -149,7 +149,7 @@ private fun ChimpCardAnalyticsContainerPreview() {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPaddings ->
             ChimpCardFlip(
                 front = { Text("Hi! I'm front!") },
-                back = {  Text("Hi! I'm back!") }
+                back = { Text("Hi! I'm back!") }
             )
             ChimpCardAnalytics(
                 data = 28,
