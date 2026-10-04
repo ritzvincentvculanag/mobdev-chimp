@@ -16,7 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import io.github.mobdevchimp.components.BottomNavigationBar
-import io.github.mobdevchimp.model.Screen
+import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.ui.screen.CreateDeckScreen
 import io.github.mobdevchimp.ui.screen.DashboardScreen
 import io.github.mobdevchimp.ui.screen.ProfileScreen
