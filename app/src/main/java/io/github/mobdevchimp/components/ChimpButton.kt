@@ -49,6 +49,7 @@ private object ChimpButtonDefaults {
     val textColor: Color = Color.White
     val onClick: () -> Unit = {}
     val icon: ImageVector? = null
+    val size: Dp = 48.dp
 }
 
 @Composable
@@ -130,7 +131,7 @@ fun ChimpButton(
     Box(
         modifier = Modifier
             .then(width)
-            .height(48.dp + 4.dp)
+            .height(ChimpButtonDefaults.size + 4.dp)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
@@ -144,14 +145,14 @@ fun ChimpButton(
             modifier = Modifier
                 .padding(top = 4.dp)
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(ChimpButtonDefaults.size)
         )
         ChimpButtonContainer(
             color = foreground,
             radius = radius,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(ChimpButtonDefaults.size)
                 .offset {
                     IntOffset(
                         x = 0,
@@ -192,13 +193,13 @@ fun ChimpButtonOutlined(
 @Composable
 fun ChimpButtonIcon(
     icon: ImageVector,
-    size: Dp = 48.dp,
-    radius: Dp = 12.dp,
-    foreground: Color = macawBlue300,
-    background: Color = macawBlue500,
-    iconTint: Color = Color.White,
     contentDescription: String? = null,
-    onClick: () -> Unit
+    size: Dp = ChimpButtonDefaults.size,
+    radius: Dp = ChimpButtonDefaults.radius,
+    foreground: Color = ChimpButtonDefaults.foreground,
+    background: Color = ChimpButtonDefaults.background,
+    iconTint: Color = ChimpButtonDefaults.textColor,
+    onClick: () -> Unit = ChimpButtonDefaults.onClick
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val currentOffset = rememberPressOffset(interactionSource)
