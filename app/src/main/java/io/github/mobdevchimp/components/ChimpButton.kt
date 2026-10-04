@@ -42,6 +42,30 @@ import io.github.mobdevchimp.ui.theme.macawBlue300
 import io.github.mobdevchimp.ui.theme.macawBlue500
 import io.github.mobdevchimp.ui.theme.swanGray300
 
+private object ChimpButtonDefaults {
+    val radius: Dp = 12.dp
+    val foreground: Color = macawBlue300
+    val background: Color = macawBlue500
+    val textColor: Color = Color.White
+    val onClick: () -> Unit = {}
+    val icon: ImageVector? = null
+}
+
+@Composable
+private fun ChimpButtonContainer(
+    color: Color,
+    modifier: Modifier = Modifier,
+    radius: Dp = ChimpButtonDefaults.radius,
+    content: @Composable () -> Unit = {}
+) {
+    Box(
+        modifier = modifier.background(color = color, shape = RoundedCornerShape(radius)),
+        contentAlignment = Alignment.Center
+    ) {
+        content()
+    }
+}
+
 @Composable
 private fun rememberPressOffset(interactionSource: MutableInteractionSource): Dp {
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -201,21 +225,6 @@ fun ChimpButtonIcon(
                 tint = iconTint
             )
         }
-    }
-}
-
-@Composable
-private fun ChimpButtonContainer(
-    color: Color,
-    radius: Dp,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit = {}
-) {
-    Box(
-        modifier = modifier.background(color = color, shape = RoundedCornerShape(radius)),
-        contentAlignment = Alignment.Center
-    ) {
-        content()
     }
 }
 
