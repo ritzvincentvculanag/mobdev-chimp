@@ -42,6 +42,16 @@ import io.github.mobdevchimp.ui.theme.macawBlue300
 import io.github.mobdevchimp.ui.theme.macawBlue500
 import io.github.mobdevchimp.ui.theme.swanGray300
 
+private object ChimpButtonDefaults {
+    val radius: Dp = 12.dp
+    val foreground: Color = macawBlue300
+    val background: Color = macawBlue500
+    val textColor: Color = Color.White
+    val onClick: () -> Unit = {}
+    val icon: ImageVector? = null
+    val size: Dp = 48.dp
+}
+
 @Composable
 private fun rememberPressOffset(interactionSource: MutableInteractionSource): Dp {
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -57,14 +67,58 @@ private fun rememberPressOffset(interactionSource: MutableInteractionSource): Dp
 }
 
 @Composable
+private fun ChimpButtonContent(
+    text: String,
+    textColor: Color = ChimpButtonDefaults.textColor,
+    icon: ImageVector? = ChimpButtonDefaults.icon
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        if (icon != null) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = Color.White
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+        }
+        Text(
+            text = text.uppercase(),
+            textAlign = TextAlign.Center,
+            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+            fontWeight = FontWeight.Bold,
+            color = textColor
+        )
+    }
+}
+
+@Composable
+fun ChimpButtonContainer(
+    color: Color,
+    modifier: Modifier = Modifier,
+    radius: Dp = ChimpButtonDefaults.radius,
+    content: @Composable () -> Unit = {}
+) {
+    Box(
+        modifier = modifier.background(color = color, shape = RoundedCornerShape(radius)),
+        contentAlignment = Alignment.Center
+    ) {
+        content()
+    }
+}
+
+@Composable
 fun ChimpButton(
     text: String,
-    radius: Dp = 12.dp,
-    foreground: Color = macawBlue300,
-    background: Color = macawBlue500,
-    textColor: Color = Color.White,
-    onClick: () -> Unit,
-    icon: ImageVector? = null
+    radius: Dp = ChimpButtonDefaults.radius,
+    foreground: Color = ChimpButtonDefaults.foreground,
+    background: Color = ChimpButtonDefaults.background,
+    textColor: Color = ChimpButtonDefaults.textColor,
+    onClick: () -> Unit = ChimpButtonDefaults.onClick,
+    icon: ImageVector? = ChimpButtonDefaults.icon
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val currentOffset = rememberPressOffset(interactionSource)
@@ -77,7 +131,7 @@ fun ChimpButton(
     Box(
         modifier = Modifier
             .then(width)
-            .height(48.dp + 4.dp)
+            .height(ChimpButtonDefaults.size + 4.dp)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
@@ -91,14 +145,14 @@ fun ChimpButton(
             modifier = Modifier
                 .padding(top = 4.dp)
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(ChimpButtonDefaults.size)
         )
         ChimpButtonContainer(
             color = foreground,
             radius = radius,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(ChimpButtonDefaults.size)
                 .offset {
                     IntOffset(
                         x = 0,
@@ -106,27 +160,11 @@ fun ChimpButton(
                     )
                 }
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                if (icon != null) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = null,
-                        tint = Color.White
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                }
-                Text(
-                    text = text.uppercase(),
-                    textAlign = TextAlign.Center,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                    fontWeight = FontWeight.Bold,
-                    color = textColor
-                )
-            }
+            ChimpButtonContent(
+                text = text,
+                icon = icon,
+                textColor = textColor
+            )
         }
     }
 }
@@ -134,12 +172,12 @@ fun ChimpButton(
 @Composable
 fun ChimpButtonOutlined(
     text: String,
-    radius: Dp = 12.dp,
-    foreground: Color = Color.White,
     background: Color = swanGray300,
-    textColor: Color = macawBlue300,
-    onClick: () -> Unit,
-    icon: ImageVector? = null
+    radius: Dp = ChimpButtonDefaults.radius,
+    foreground: Color = Color.White,
+    textColor: Color = ChimpButtonDefaults.foreground,
+    onClick: () -> Unit = ChimpButtonDefaults.onClick,
+    icon: ImageVector? = ChimpButtonDefaults.icon
 ) {
     ChimpButton(
         text = text,
@@ -155,13 +193,13 @@ fun ChimpButtonOutlined(
 @Composable
 fun ChimpButtonIcon(
     icon: ImageVector,
-    size: Dp = 48.dp,
-    radius: Dp = 12.dp,
-    foreground: Color = macawBlue300,
-    background: Color = macawBlue500,
-    iconTint: Color = Color.White,
     contentDescription: String? = null,
-    onClick: () -> Unit
+    size: Dp = ChimpButtonDefaults.size,
+    radius: Dp = ChimpButtonDefaults.radius,
+    foreground: Color = ChimpButtonDefaults.foreground,
+    background: Color = ChimpButtonDefaults.background,
+    iconTint: Color = ChimpButtonDefaults.textColor,
+    onClick: () -> Unit = ChimpButtonDefaults.onClick
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val currentOffset = rememberPressOffset(interactionSource)
@@ -201,21 +239,6 @@ fun ChimpButtonIcon(
                 tint = iconTint
             )
         }
-    }
-}
-
-@Composable
-private fun ChimpButtonContainer(
-    color: Color,
-    radius: Dp,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit = {}
-) {
-    Box(
-        modifier = modifier.background(color = color, shape = RoundedCornerShape(radius)),
-        contentAlignment = Alignment.Center
-    ) {
-        content()
     }
 }
 
