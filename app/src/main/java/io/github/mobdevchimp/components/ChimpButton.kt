@@ -171,12 +171,12 @@ fun ChimpButton(
 @Composable
 fun ChimpButtonOutlined(
     text: String,
-    radius: Dp = 12.dp,
-    foreground: Color = Color.White,
     background: Color = swanGray300,
-    textColor: Color = macawBlue300,
-    onClick: () -> Unit,
-    icon: ImageVector? = null
+    radius: Dp = ChimpButtonDefaults.radius,
+    foreground: Color = Color.White,
+    textColor: Color = ChimpButtonDefaults.foreground,
+    onClick: () -> Unit = ChimpButtonDefaults.onClick,
+    icon: ImageVector? = ChimpButtonDefaults.icon
 ) {
     ChimpButton(
         text = text,
