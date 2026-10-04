@@ -1,4 +1,4 @@
-package io.github.mobdevchimp.model
+package io.github.mobdevchimp.components
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
