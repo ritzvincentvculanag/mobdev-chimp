@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.components.ChimpCardAnalytics
 import io.github.mobdevchimp.components.ChimpDeckItem
+import io.github.mobdevchimp.components.ChimpSectionTitle
 import io.github.mobdevchimp.components.ChimpTitle
 import io.github.mobdevchimp.db.Storage
 import io.github.mobdevchimp.models.Deck
@@ -27,8 +28,9 @@ fun DashboardScreen() {
         val storage = Storage()
         val decks = storage.getDecks()
 
-        ChimpTitle(text = "My Decks")
+        ChimpTitle(text = "Dashboard")
         DashboardAnalytics()
+        ChimpSectionTitle(text = "My Decks")
         DashboardDecks(
             decks = decks,
             onCardClick = { deck -> println("Redirecting to details for deck id ${deck.id}") },
@@ -40,8 +42,16 @@ fun DashboardScreen() {
 @Composable
 private fun DashboardAnalytics() {
     Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-        ChimpCardAnalytics(value = 3, title = "Day Streak")
-        ChimpCardAnalytics(value = 42, title = "Total cards")
+        ChimpCardAnalytics(
+            modifier = Modifier.weight(1f),
+            value = 3,
+            title = "Day Streak"
+        )
+        ChimpCardAnalytics(
+            modifier = Modifier.weight(1f),
+            value = 42,
+            title = "Total cards"
+        )
     }
 }
 
@@ -51,7 +61,7 @@ private fun DashboardDecks(
     onCardClick: (Deck) -> Unit,
     onPlayClick: (Deck) -> Unit
 ) {
-    LazyColumn {
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         items(
             items = decks,
             key = { deck -> deck.id }
