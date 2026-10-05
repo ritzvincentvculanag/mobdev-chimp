@@ -1,5 +1,6 @@
 package io.github.mobdevchimp.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.mobdevchimp.models.Deck
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.eelBlack100
 import io.github.mobdevchimp.ui.theme.eelBlack300
@@ -42,15 +44,17 @@ private fun ChimpDeckItemContent(
 fun ChimpDeckItem(
     title: String,
     subtitle: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onCardClick: () -> Unit = {},
+    onPlayClick: () -> Unit = {}
 ) {
-    ChimpCardContainer {
+    ChimpCardContainer(modifier = modifier.clickable(onClick = { onCardClick() })) {
         Row(
             modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             ChimpDeckItemContent(title = title, subtitle = subtitle)
-            ChimpButtonIcon(icon = Icons.Default.PlayArrow)
+            ChimpButtonIcon(icon = Icons.Default.PlayArrow, onClick = onPlayClick)
         }
     }
 }
