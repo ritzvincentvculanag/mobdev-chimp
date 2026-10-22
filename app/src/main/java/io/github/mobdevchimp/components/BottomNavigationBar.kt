@@ -13,8 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavController
-import io.github.mobdevchimp.model.NavigationItem
-import io.github.mobdevchimp.model.Screen
 import io.github.mobdevchimp.ui.theme.macawBlue100
 import io.github.mobdevchimp.ui.theme.macawBlue200
 import io.github.mobdevchimp.ui.theme.macawBlue500
