@@ -71,6 +71,38 @@ class Storage {
             back = "It lowers the activation energy to speed up the reaction rate without being consumed."
         )
     )
+    private val scienceCards: List<Card> = listOf(
+        Card(
+            id = 11,
+            deckId = 4,
+            front = "What force pulls objects toward the center of the Earth?",
+            back = "Gravity."
+        ),
+        Card(
+            id = 12,
+            deckId = 4,
+            front = "What is the process by which plants convert light energy into chemical energy?",
+            back = "Photosynthesis."
+        ),
+        Card(
+            id = 13,
+            deckId = 4,
+            front = "What is the closest star to Earth?",
+            back = "The Sun."
+        ),
+        Card(
+            id = 14,
+            deckId = 4,
+            front = "What is the basic unit of matter?",
+            back = "An atom."
+        ),
+        Card(
+            id = 15,
+            deckId = 4,
+            front = "What instrument is used to measure temperature?",
+            back = "A thermometer."
+        )
+    )
 
     init {
         buildDecks()
@@ -96,6 +128,13 @@ class Storage {
                 id = 3,
                 name = "Chemistry",
                 cards = chemistryCards
+            )
+        )
+        decks.add(
+            Deck(
+                id = 4,
+                name = "General Science",
+                cards = scienceCards
             )
         )
     }

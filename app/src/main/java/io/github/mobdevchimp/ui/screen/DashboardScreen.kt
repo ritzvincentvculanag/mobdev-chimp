@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.components.ChimpCardAnalytics
@@ -19,6 +23,16 @@ import io.github.mobdevchimp.models.Deck
 
 @Composable
 fun DashboardScreen() {
+    var selectedDeck by remember { mutableStateOf<Deck?>(null) }
+
+    if (selectedDeck != null) {
+        DeckStudyScreen(
+            deck = selectedDeck!!,
+            onBackClick = { selectedDeck = null }
+        )
+        return
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -33,8 +47,8 @@ fun DashboardScreen() {
         ChimpSectionTitle(text = "My Decks")
         DashboardDecks(
             decks = decks,
-            onCardClick = { deck -> println("Redirecting to details for deck id ${deck.id}") },
-            onPlayClick = { deck -> println("Now playing deck with deck id ${deck.id}") }
+            onCardClick = { deck -> selectedDeck = deck },
+            onPlayClick = { deck -> selectedDeck = deck }
         )
     }
 }

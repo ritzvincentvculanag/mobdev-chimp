@@ -56,7 +56,7 @@ fun MainScreen() {
 
 @Preview
 @Composable
-private fun MainScreenPreview() {
+fun MainScreenPreview() {
     MobdevchimpTheme {
         MainScreen()
     }
