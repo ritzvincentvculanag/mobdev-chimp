@@ -77,6 +77,38 @@ object Storage {
             back = "It lowers the activation energy to speed up the reaction rate without being consumed."
         )
     )
+    private val physicsCards: List<Card> = listOf(
+        Card(
+            id = 11,
+            deckId = 4,
+            front = "State Newton's First Law of Motion.",
+            back = "An object stays at rest or in uniform motion unless acted upon by an external force (the law of inertia)."
+        ),
+        Card(
+            id = 12,
+            deckId = 4,
+            front = "What is the SI unit of force?",
+            back = "The newton (N)."
+        ),
+        Card(
+            id = 13,
+            deckId = 4,
+            front = "What is the formula for speed?",
+            back = "Speed equals distance divided by time."
+        ),
+        Card(
+            id = 14,
+            deckId = 4,
+            front = "What is the difference between mass and weight?",
+            back = "Mass is the amount of matter in an object; weight is the force of gravity acting on that mass."
+        ),
+        Card(
+            id = 15,
+            deckId = 4,
+            front = "What is acceleration?",
+            back = "The rate of change of velocity over time."
+        )
+    )
 
     init {
         buildDecks()
@@ -146,6 +178,7 @@ object Storage {
     )
 
     fun getDecks(): List<Deck> = decks
+}
 
     fun addDeck(name: String): Deck {
         val deck = Deck(
