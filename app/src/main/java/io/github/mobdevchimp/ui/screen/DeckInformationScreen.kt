@@ -97,6 +97,15 @@ fun DeckInformationScreen(
                     }
                 }
             )
+        },
+        bottomBar = {
+            ChimpButton(
+                text = "Add Card",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                onClick = { navController?.navigate(Screen.AddCard.createRoute(deckId)) }
+            )
         }
     ) { innerPadding ->
         Column(
@@ -161,12 +170,6 @@ fun DeckInformationScreen(
                     }
                 }
             }
-            Spacer(modifier = Modifier.weight(1f))
-            ChimpButton(
-                text = "Add Card",
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navController?.navigate(Screen.AddCard.createRoute(deckId)) }
-            )
         }
     }
 

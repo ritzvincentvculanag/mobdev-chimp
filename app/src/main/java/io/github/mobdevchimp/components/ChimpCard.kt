@@ -93,9 +93,11 @@ fun ChimpCardAnalytics(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            ChimpLargeText(
+            Text(
                 text = value.toString(),
-                fontWeight = FontWeight.ExtraBold
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = macawBlue500
             )
             ChimpBodyText(
                 text = title.uppercase(),

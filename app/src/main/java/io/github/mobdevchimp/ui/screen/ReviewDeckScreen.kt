@@ -82,7 +82,6 @@ fun ReviewDeckScreen(
             TopAppBar(
                 title = {
                     Column {
-
                         ChimpTopBarText(
                             text = deck?.name.toString(),
                             description = "${initialCards.size} ${if (initialCards.size == 1) "card" else "cards"} available"

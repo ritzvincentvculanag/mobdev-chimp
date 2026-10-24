@@ -2,6 +2,7 @@ package io.github.mobdevchimp.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -123,7 +124,7 @@ fun ChimpTopBarText(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         ChimpLargeText(text = text, fontWeight = FontWeight.Bold, color = eelBlack300)
         if (description.isNotEmpty()) {
@@ -145,6 +146,7 @@ fun ChimpScreenHeader(
         Text(
             text = title,
             fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
             color = eelBlack300
         )
         if (description.isNotEmpty()) {

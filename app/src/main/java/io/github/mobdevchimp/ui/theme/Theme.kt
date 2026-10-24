@@ -22,7 +22,7 @@ private val DarkColorScheme = darkColorScheme(
     background = featherGreen700,
     onBackground = Color.White,
     surface = featherGreen700,
-    onSurface = Color.White,
+    onSurface = eelBlack300,
     error = cardinalRed500,
     onError = Color.White
 )
@@ -37,7 +37,7 @@ private val LightColorScheme = lightColorScheme(
     background = Color(0xFFF8FFF8),
     onBackground = featherGreen700,
     surface = Color.White,
-    onSurface = featherGreen700,
+    onSurface = eelBlack300,
     error = cardinalRed500,
     onError = Color.White
 )
