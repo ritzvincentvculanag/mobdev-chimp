@@ -77,13 +77,13 @@ internal fun CardEditorLayout(
         }
     ) { innerPadding ->
         Column(
-            verticalArrangement = Arrangement.spacedBy(24.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            Text(description)
+            io.github.mobdevchimp.components.ChimpDescription(text = description)
             ChimpFormField(
                 label = "Front (Question)",
                 state = frontState,

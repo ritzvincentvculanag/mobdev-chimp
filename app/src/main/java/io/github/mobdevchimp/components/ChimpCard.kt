@@ -34,16 +34,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.mobdevchimp.ui.theme.eelBlack100
 import io.github.mobdevchimp.ui.theme.macawBlue500
-import io.github.mobdevchimp.ui.theme.swanGray100
-import io.github.mobdevchimp.ui.theme.swanGray300
+import io.github.mobdevchimp.ui.theme.macawBlue200
+import io.github.mobdevchimp.ui.theme.macawBlue700
 
 private object ChimpCardDefaults {
     val borderWidth: Dp = 2.dp
-    val borderColor: Color = swanGray300
+    val borderColor: Color = macawBlue200
     val contentPadding: PaddingValues = PaddingValues(16.dp)
-    val containerColor: Color = swanGray100
+    val containerColor: Color = Color.White
     val shape: Shape = RoundedCornerShape(12.dp)
     val cameraDistance: Dp = 12.dp
     val flipAnimationSpec: AnimationSpec<Float> = tween(
@@ -91,17 +90,13 @@ fun ChimpCardAnalytics(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Text(
+            ChimpLargeText(
                 text = value.toString(),
-                fontSize = 28.sp,
-                fontWeight = FontWeight.ExtraBold,
-                color = macawBlue500
+                fontWeight = FontWeight.ExtraBold
             )
-            Text(
+            ChimpBodyText(
                 text = title.uppercase(),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = eelBlack100
+                fontWeight = FontWeight.Bold
             )
         }
     }

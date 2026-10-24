@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,8 +18,8 @@ import androidx.navigation.NavController
 import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
-import io.github.mobdevchimp.ui.theme.macawBlue500
-import io.github.mobdevchimp.ui.theme.wolfGray100
+import io.github.mobdevchimp.components.ChimpBodyText
+import io.github.mobdevchimp.components.ChimpLargeText
 
 @Composable
 fun GetStartedScreen(
@@ -30,28 +27,18 @@ fun GetStartedScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.weight(1f))
-        Text(
-            text = "Chimp",
-            textAlign = TextAlign.Center,
-            fontSize = MaterialTheme.typography.displayLarge.fontSize,
-            fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
-            fontWeight = MaterialTheme.typography.displayLarge.fontWeight,
-            color = macawBlue500,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "Let’s start memorizing! One deck at a time.",
-            textAlign = TextAlign.Center,
-            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-            fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
-            color = wolfGray100,
-            modifier = Modifier.fillMaxWidth()
+        ChimpLargeText(text = "Chimp", modifier = Modifier.fillMaxWidth())
+        Spacer(modifier = Modifier.height(16.dp))
+        ChimpBodyText(
+            text = "Let's start memorizing! One deck at a time.",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.weight(1f))
         ChimpButton(

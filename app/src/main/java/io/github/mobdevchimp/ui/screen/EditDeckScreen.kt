@@ -48,7 +48,7 @@ fun EditDeckScreen(
         }
     ) { innerPadding ->
         Column(
-            verticalArrangement = Arrangement.spacedBy(24.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()

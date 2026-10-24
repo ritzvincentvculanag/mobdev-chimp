@@ -8,8 +8,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,8 +18,6 @@ import androidx.compose.ui.unit.sp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.cardinalRed300
 import io.github.mobdevchimp.models.Card
-import io.github.mobdevchimp.ui.theme.eelBlack300
-import io.github.mobdevchimp.ui.theme.wolfGray300
 
 @Composable
 fun ChimpCardItem(
@@ -39,17 +35,8 @@ fun ChimpCardItem(
                     alignment = Alignment.CenterVertically
                 )
             ) {
-                Text(
-                    text = card.back,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = eelBlack300
-                )
-                Text(
-                    text = card.front,
-                    fontSize = 14.sp,
-                    color = wolfGray300
-                )
+                ChimpBodyText(text = card.front, fontWeight = FontWeight.Bold)
+                ChimpBodyText(text = card.back, fontSize = 14.sp)
             }
             IconButton(onClick = onDeleteClick) {
                 Icon(

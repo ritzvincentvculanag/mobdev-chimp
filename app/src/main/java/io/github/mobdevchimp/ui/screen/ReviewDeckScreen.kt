@@ -28,25 +28,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import io.github.mobdevchimp.components.ChimpBodyTextMedium
+import io.github.mobdevchimp.components.ChimpCardFlipText
+import io.github.mobdevchimp.components.ChimpSmallText
 import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.ChimpButtonOutlined
 import io.github.mobdevchimp.components.ChimpCardFlip
-import io.github.mobdevchimp.components.ChimpScreenHeader
 import io.github.mobdevchimp.components.ChimpTopBarText
 import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.db.Storage
 import io.github.mobdevchimp.ui.theme.beeYellow100
 import io.github.mobdevchimp.ui.theme.beeYellow300
 import io.github.mobdevchimp.ui.theme.eelBlack300
-import io.github.mobdevchimp.ui.theme.wolfGray300
+import io.github.mobdevchimp.ui.theme.macawBlue700
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -109,14 +108,14 @@ fun ReviewDeckScreen(
                 .padding(16.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             if (card != null) {
                 Text(
                     text = "${cardIndex + 1} out of ${initialCards.size}",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black,
+                    color = eelBlack300,
                     textAlign = TextAlign.Center
                 )
                 key(card.id) {
@@ -128,22 +127,10 @@ fun ReviewDeckScreen(
                         frontColor = beeYellow100,
                         backColor = beeYellow300,
                         front = {
-                            Text(
-                                text = card.front,
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.Black,
-                                textAlign = TextAlign.Center
-                            )
+                            ChimpCardFlipText(text = card.front)
                         },
                         back = {
-                            Text(
-                                text = card.back,
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.Black,
-                                textAlign = TextAlign.Center
-                            )
+                            ChimpCardFlipText(text = card.back)
                         }
                     )
                 }
@@ -171,10 +158,10 @@ fun ReviewDeckScreen(
                     Icon(
                         imageVector = Icons.Default.TouchApp,
                         contentDescription = "Tap to flip",
-                        tint = wolfGray300
+                        tint = macawBlue700
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    ChimpBodyTextMedium(text = "Tap to flip")
+                    ChimpSmallText(text = "Tap to flip")
                 }
             }
         }

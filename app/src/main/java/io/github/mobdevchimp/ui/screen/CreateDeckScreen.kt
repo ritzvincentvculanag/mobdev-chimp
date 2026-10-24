@@ -26,7 +26,7 @@ fun CreateDeckScreen(
     val state = rememberTextFieldState("")
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp)

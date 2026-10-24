@@ -28,6 +28,7 @@ import io.github.mobdevchimp.ui.screen.ProfileScreen
 import io.github.mobdevchimp.ui.screen.ReviewDeckScreen
 import io.github.mobdevchimp.ui.screen.SessionSummaryScreen
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
+import io.github.mobdevchimp.ui.theme.albinoWhite100
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +52,7 @@ fun MainScreen() {
         Screen.Profile.route
     )
     Scaffold(
+        containerColor = albinoWhite100,
         bottomBar = {
             if (showBottomBar) {
                 BottomNavigationBar(navController)

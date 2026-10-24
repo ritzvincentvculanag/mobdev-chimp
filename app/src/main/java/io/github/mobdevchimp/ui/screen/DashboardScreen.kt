@@ -24,7 +24,7 @@ import io.github.mobdevchimp.components.ChimpCardAnalytics
 import io.github.mobdevchimp.components.ChimpDeckItem
 import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.components.ChimpSectionTitle
-import io.github.mobdevchimp.components.ChimpTitle
+import io.github.mobdevchimp.components.ChimpScreenTitle
 import io.github.mobdevchimp.db.Storage
 import io.github.mobdevchimp.models.Deck
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
@@ -36,11 +36,11 @@ fun DashboardScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         val decks = Storage.getDecks()
 
-        ChimpTitle(text = "Dashboard")
+        ChimpScreenTitle(text = "Dashboard")
         DashboardAnalytics()
         ChimpSectionTitle(text = "My Decks")
         DashboardDecks(
@@ -72,7 +72,7 @@ fun DashboardScreen(navController: NavController) {
 
 @Composable
 private fun DashboardAnalytics() {
-    Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         ChimpCardAnalytics(
             modifier = Modifier.weight(1f),
             value = 3,
@@ -92,7 +92,7 @@ private fun DashboardDecks(
     onCardClick: (Deck) -> Unit,
     onPlayClick: (Deck) -> Unit
 ) {
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         items(
             items = decks,
             key = { deck -> deck.id }

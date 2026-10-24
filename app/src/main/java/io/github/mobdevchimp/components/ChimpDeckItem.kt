@@ -18,8 +18,7 @@ import io.github.mobdevchimp.models.Deck
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.beeYellow300
 import io.github.mobdevchimp.ui.theme.beeYellow500
-import io.github.mobdevchimp.ui.theme.eelBlack100
-import io.github.mobdevchimp.ui.theme.eelBlack300
+import io.github.mobdevchimp.ui.theme.macawBlue700
 
 @Composable
 private fun ChimpDeckItemContent(
@@ -32,13 +31,13 @@ private fun ChimpDeckItemContent(
             text = title,
             fontSize = MaterialTheme.typography.bodyLarge.fontSize,
             fontWeight = FontWeight.Bold,
-            color = eelBlack300
+            color = macawBlue700
         )
         Text(
             text = subtitle,
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
             fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
-            color = eelBlack100
+            color = macawBlue700
         )
     }
 }

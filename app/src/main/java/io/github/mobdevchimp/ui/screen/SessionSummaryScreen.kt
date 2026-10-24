@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.ChimpButtonOutlined
+import io.github.mobdevchimp.components.ChimpBodyText
+import io.github.mobdevchimp.components.ChimpScreenTitle
 import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.db.Storage
 import io.github.mobdevchimp.ui.theme.beeYellow400
@@ -40,7 +42,7 @@ fun SessionSummaryScreen(
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Spacer(modifier = Modifier.weight(1f))
         Icon(
@@ -49,14 +51,9 @@ fun SessionSummaryScreen(
             tint = beeYellow400,
             modifier = Modifier.size(96.dp)
         )
-        Text(
-            text = "Session Complete!",
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
-        Text(text = "Cards mastered: $masteredCount")
-        Text(text = "Cards missed: $missedCount")
+        ChimpScreenTitle(text = "Session Complete!")
+        ChimpBodyText(text = "Cards mastered: $masteredCount")
+        ChimpBodyText(text = "Cards missed: $missedCount")
         Spacer(modifier = Modifier.weight(1f))
         ChimpButton(
             text = "Back to Dashboard",
