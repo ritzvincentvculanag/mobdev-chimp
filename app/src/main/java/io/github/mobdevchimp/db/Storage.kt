@@ -3,7 +3,7 @@ package io.github.mobdevchimp.db
 import io.github.mobdevchimp.models.Card
 import io.github.mobdevchimp.models.Deck
 
-class Storage {
+object Storage {
     private var decks = mutableListOf<Deck>()
     private val biologyCards: List<Card> = listOf(
         Card(
@@ -101,4 +101,24 @@ class Storage {
     }
 
     fun getDecks(): List<Deck> = decks
+
+    fun addDeck(name: String): Deck {
+        val deck = Deck(
+            id = (decks.maxOfOrNull { it.id } ?: 0) + 1,
+            name = name
+        )
+        decks.add(deck)
+        return deck
+    }
+
+    fun deleteDeck(deckId: Int) {
+        decks.removeAll { it.id == deckId }
+    }
+
+    fun updateDeck(deckId: Int, name: String) {
+        val index = decks.indexOfFirst { it.id == deckId }
+        if (index >= 0) {
+            decks[index] = decks[index].copy(name = name)
+        }
+    }
 }

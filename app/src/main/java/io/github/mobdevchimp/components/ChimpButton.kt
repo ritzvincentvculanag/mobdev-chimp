@@ -113,6 +113,7 @@ fun ChimpButtonContainer(
 @Composable
 fun ChimpButton(
     text: String,
+    modifier: Modifier = Modifier,
     radius: Dp = ChimpButtonDefaults.radius,
     foreground: Color = ChimpButtonDefaults.foreground,
     background: Color = ChimpButtonDefaults.background,
@@ -130,6 +131,7 @@ fun ChimpButton(
 
     Box(
         modifier = Modifier
+            .then(modifier)
             .then(width)
             .height(ChimpButtonDefaults.size + 4.dp)
             .clickable(
@@ -172,6 +174,7 @@ fun ChimpButton(
 @Composable
 fun ChimpButtonOutlined(
     text: String,
+    modifier: Modifier = Modifier,
     background: Color = swanGray300,
     radius: Dp = ChimpButtonDefaults.radius,
     foreground: Color = Color.White,
@@ -181,6 +184,7 @@ fun ChimpButtonOutlined(
 ) {
     ChimpButton(
         text = text,
+        modifier = modifier,
         radius = radius,
         foreground = foreground,
         background = background,
