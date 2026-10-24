@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -131,6 +132,18 @@ fun ChimpTextFieldLarge(
         placeholder = placeholder,
         singleLine = false
     )
+}
+
+@Composable
+fun ChimpFormField(
+    label: String,
+    state: TextFieldState,
+    placeholder: String
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        ChimpSectionTitle(text = label)
+        ChimpTextField(state = state, placeholder = placeholder)
+    }
 }
 
 @Preview

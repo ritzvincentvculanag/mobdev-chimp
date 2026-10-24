@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,7 +29,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MobdevchimpTheme {
-                MainScreen()
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    contentWindowInsets = WindowInsets.safeDrawing,
+                ) { innerPaddings ->
+                    CreateDeckScreen(modifier = Modifier.padding(innerPaddings))
+                }
             }
         }
     }
