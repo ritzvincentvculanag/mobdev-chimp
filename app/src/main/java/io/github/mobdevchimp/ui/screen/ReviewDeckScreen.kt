@@ -70,7 +70,7 @@ fun ReviewDeckScreen(
         isFlipped = false
         if (card == null) {
             Storage.saveSessionResult(deckId, initialCards.size, missedCards.toList())
-            navController?.navigate(Screen.SessionSummary.createRoute(deckId)) {
+            navController?.navigate(Screen.SessionSummary.createRoute(deckId, allowReview = true)) {
                 popUpTo(Screen.ReviewDeck.createRoute(deckId, missedOnly)) { inclusive = true }
             }
         }

@@ -126,7 +126,13 @@ fun DeckInformationScreen(
                     modifier = Modifier.weight(1f),
                     foreground = beetlePurple300,
                     background = beetlePurple500,
-                    onClick = { showEmptyDeckDialog = cards.isEmpty() }
+                    onClick = {
+                        if (cards.isEmpty()) {
+                            showEmptyDeckDialog = true
+                        } else {
+                            navController?.navigate(Screen.MatchGame.createRoute(deckId))
+                        }
+                    }
                 )
             }
             ChimpSectionTitle(text = "Your Cards")

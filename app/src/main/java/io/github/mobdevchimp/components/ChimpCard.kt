@@ -114,6 +114,8 @@ fun ChimpCardFlip(
     onFlippedChange: ((Boolean) -> Unit)? = null,
     frontColor: Color = ChimpCardDefaults.containerColor,
     backColor: Color = ChimpCardDefaults.containerColor,
+    borderColor: Color = ChimpCardDefaults.borderColor,
+    enabled: Boolean = true,
     animationSpec: AnimationSpec<Float> = ChimpCardDefaults.flipAnimationSpec,
     cameraDistance: Dp = ChimpCardDefaults.cameraDistance,
     onClickLabel: String? = null
@@ -131,6 +133,8 @@ fun ChimpCardFlip(
         modifier = modifier,
         frontColor = frontColor,
         backColor = backColor,
+        borderColor = borderColor,
+        enabled = enabled,
         animationSpec = animationSpec,
         cameraDistance = cameraDistance,
         onClickLabel = onClickLabel
@@ -146,6 +150,8 @@ fun ChimpCardFlip(
     modifier: Modifier = Modifier,
     frontColor: Color = ChimpCardDefaults.containerColor,
     backColor: Color = ChimpCardDefaults.containerColor,
+    borderColor: Color = ChimpCardDefaults.borderColor,
+    enabled: Boolean = true,
     animationSpec: AnimationSpec<Float> = ChimpCardDefaults.flipAnimationSpec,
     cameraDistance: Dp = ChimpCardDefaults.cameraDistance,
     onClickLabel: String? = null
@@ -165,14 +171,21 @@ fun ChimpCardFlip(
                 rotationY = rotation
                 this.cameraDistance = cameraDistancePx
             }
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClickLabel = onClickLabel,
-                role = Role.Button,
-                onClick = { onFlippedChange(!flipped) }
+            .then(
+                if (enabled) {
+                    Modifier.clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClickLabel = onClickLabel,
+                        role = Role.Button,
+                        onClick = { onFlippedChange(!flipped) }
+                    )
+                } else {
+                    Modifier
+                }
             ),
-        containerColor = if (showFront) frontColor else backColor
+        containerColor = if (showFront) frontColor else backColor,
+        borderColor = borderColor
     ) {
         if (showFront) {
             Box(

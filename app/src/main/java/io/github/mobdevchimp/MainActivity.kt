@@ -27,6 +27,7 @@ import io.github.mobdevchimp.ui.screen.EditDeckScreen
 import io.github.mobdevchimp.ui.screen.GetStartedScreen
 import io.github.mobdevchimp.ui.screen.ProfileScreen
 import io.github.mobdevchimp.ui.screen.ReviewDeckScreen
+import io.github.mobdevchimp.ui.screen.MatchGameScreen
 import io.github.mobdevchimp.ui.screen.SessionSummaryScreen
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 
@@ -133,10 +134,25 @@ fun MainScreen() {
             }
             composable(
                 route = Screen.SessionSummary.route,
+                arguments = listOf(
+                    navArgument("deckId") { type = NavType.IntType },
+                    navArgument("allowReview") { type = NavType.BoolType }
+                )
+            ) { backStackEntry ->
+                val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
+                val allowReview = backStackEntry.arguments?.getBoolean("allowReview") ?: true
+                SessionSummaryScreen(
+                    deckId = deckId,
+                    allowReview = allowReview,
+                    navController = navController
+                )
+            }
+            composable(
+                route = Screen.MatchGame.route,
                 arguments = listOf(navArgument("deckId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
-                SessionSummaryScreen(deckId = deckId, navController = navController)
+                MatchGameScreen(deckId = deckId, navController = navController)
             }
         }
     }

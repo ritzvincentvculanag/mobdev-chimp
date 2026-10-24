@@ -30,6 +30,7 @@ import io.github.mobdevchimp.ui.theme.beeYellow400
 @Composable
 fun SessionSummaryScreen(
     deckId: Int,
+    allowReview: Boolean = true,
     navController: NavController? = null,
     modifier: Modifier = Modifier
 ) {
@@ -66,7 +67,7 @@ fun SessionSummaryScreen(
                 }
             }
         )
-        if (missedCount > 0) {
+        if (allowReview && missedCount > 0) {
             ChimpButtonOutlined(
                 text = "Review Missed Cards",
                 modifier = Modifier.fillMaxWidth(),

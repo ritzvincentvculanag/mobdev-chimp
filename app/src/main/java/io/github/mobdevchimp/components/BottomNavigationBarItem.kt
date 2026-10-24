@@ -32,7 +32,11 @@ sealed class Screen(val route: String) {
         fun createRoute(deckId: Int, missedOnly: Boolean = false) =
             "review_deck_screen/$deckId/$missedOnly"
     }
-    object SessionSummary: Screen("session_summary_screen/{deckId}") {
-        fun createRoute(deckId: Int) = "session_summary_screen/$deckId"
+    object MatchGame: Screen("match_game_screen/{deckId}") {
+        fun createRoute(deckId: Int) = "match_game_screen/$deckId"
+    }
+    object SessionSummary: Screen("session_summary_screen/{deckId}/{allowReview}") {
+        fun createRoute(deckId: Int, allowReview: Boolean = true) =
+            "session_summary_screen/$deckId/$allowReview"
     }
 }
