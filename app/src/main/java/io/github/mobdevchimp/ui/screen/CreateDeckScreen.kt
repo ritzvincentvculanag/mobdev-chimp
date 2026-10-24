@@ -1,27 +1,18 @@
 package io.github.mobdevchimp.ui.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import io.github.mobdevchimp.components.ChimpBodyText
 import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.ChimpFormField
 import io.github.mobdevchimp.components.ChimpScreenHeader
-import io.github.mobdevchimp.components.ChimpSectionTitle
-import io.github.mobdevchimp.components.ChimpTextField
-import io.github.mobdevchimp.components.ChimpTitle
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 
 @Composable
@@ -47,25 +38,6 @@ fun CreateDeckScreen(modifier: Modifier = Modifier) {
         ChimpButton(text = "Create")
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
