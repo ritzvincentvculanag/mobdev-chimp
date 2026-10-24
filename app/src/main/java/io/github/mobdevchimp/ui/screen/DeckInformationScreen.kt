@@ -60,6 +60,7 @@ fun DeckInformationScreen(
     var menuExpanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showEmptyDeckDialog by remember { mutableStateOf(false) }
+    var cardToDelete by remember { mutableStateOf<io.github.mobdevchimp.models.Card?>(null) }
 
     Scaffold(
         modifier = modifier,
@@ -148,8 +149,7 @@ fun DeckInformationScreen(
                                 navController?.navigate(Screen.EditCard.createRoute(deckId, card.id))
                             },
                             onDeleteClick = {
-                                Storage.deleteCard(deckId, card.id)
-                                deletedCardIds = deletedCardIds + card.id
+                                cardToDelete = card
                             }
                         )
                     }
@@ -162,6 +162,32 @@ fun DeckInformationScreen(
                 onClick = { navController?.navigate(Screen.AddCard.createRoute(deckId)) }
             )
         }
+    }
+
+    if (cardToDelete != null) {
+        AlertDialog(
+            onDismissRequest = { cardToDelete = null },
+            title = { Text("Delete card?") },
+            text = { Text("Are you sure you want to delete this card?") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        cardToDelete?.let { card ->
+                            Storage.deleteCard(deckId, card.id)
+                            deletedCardIds = deletedCardIds + card.id
+                        }
+                        cardToDelete = null
+                    }
+                ) {
+                    Text("Delete")
+                }
+            },
+            dismissButton = {
+                Button(onClick = { cardToDelete = null }) {
+                    Text("Cancel")
+                }
+            }
+        )
     }
 
     if (showDeleteDialog) {
@@ -184,18 +210,18 @@ fun DeckInformationScreen(
                 Button(onClick = { showDeleteDialog = false }) {
                     Text("Cancel")
                 }
+            }
+        )
+    }
 
-                if (showEmptyDeckDialog) {
-                    AlertDialog(
-                        onDismissRequest = { showEmptyDeckDialog = false },
-                        title = { Text("Deck is empty") },
-                        text = { Text("Add cards to this deck before starting a study session.") },
-                        confirmButton = {
-                            Button(onClick = { showEmptyDeckDialog = false }) {
-                                Text("OK")
-                            }
-                        }
-                    )
+    if (showEmptyDeckDialog) {
+        AlertDialog(
+            onDismissRequest = { showEmptyDeckDialog = false },
+            title = { Text("Deck is empty") },
+            text = { Text("Add cards to this deck before starting a study session.") },
+            confirmButton = {
+                Button(onClick = { showEmptyDeckDialog = false }) {
+                    Text("OK")
                 }
             }
         )

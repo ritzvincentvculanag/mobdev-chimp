@@ -47,7 +47,9 @@ fun CreateDeckScreen(
                 val name = state.text.toString().trim()
                 if (name.isNotEmpty()) {
                     val deck = Storage.addDeck(name)
-                    navController?.navigate(Screen.DeckInformation.createRoute(deck.id))
+                    navController?.navigate(Screen.AddCard.createRoute(deck.id)) {
+                        popUpTo(Screen.CreateDeck.route) { inclusive = true }
+                    }
                 }
             }
         )

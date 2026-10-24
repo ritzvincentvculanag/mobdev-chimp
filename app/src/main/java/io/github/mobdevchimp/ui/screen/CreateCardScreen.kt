@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.ChimpFormField
+import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.db.Storage
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,8 +46,16 @@ fun AddCardScreen(
         navController = navController,
         actionText = "Save Card",
         onSave = {
-            Storage.addCard(deckId, frontState.text.toString().trim(), backState.text.toString().trim())
-            navController?.popBackStack()
+            val card = Storage.addCard(
+                deckId,
+                frontState.text.toString().trim(),
+                backState.text.toString().trim()
+            )
+            if (card != null) {
+                navController?.navigate(Screen.CardSaved.createRoute(deckId)) {
+                    popUpTo(Screen.AddCard.createRoute(deckId)) { inclusive = true }
+                }
+            }
         }
     )
 }

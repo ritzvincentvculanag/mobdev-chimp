@@ -19,6 +19,7 @@ import io.github.mobdevchimp.components.BottomNavigationBar
 import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.ui.screen.CreateDeckScreen
 import io.github.mobdevchimp.ui.screen.AddCardScreen
+import io.github.mobdevchimp.ui.screen.CardSavedScreen
 import io.github.mobdevchimp.ui.screen.DeckInformationScreen
 import io.github.mobdevchimp.ui.screen.DashboardScreen
 import io.github.mobdevchimp.ui.screen.EditCardScreen
@@ -28,7 +29,6 @@ import io.github.mobdevchimp.ui.screen.ProfileScreen
 import io.github.mobdevchimp.ui.screen.ReviewDeckScreen
 import io.github.mobdevchimp.ui.screen.SessionSummaryScreen
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
-import io.github.mobdevchimp.ui.theme.albinoWhite100
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +52,6 @@ fun MainScreen() {
         Screen.Profile.route
     )
     Scaffold(
-        containerColor = albinoWhite100,
         bottomBar = {
             if (showBottomBar) {
                 BottomNavigationBar(navController)
@@ -94,6 +93,13 @@ fun MainScreen() {
             ) { backStackEntry ->
                 val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
                 AddCardScreen(deckId = deckId, navController = navController)
+            }
+            composable(
+                route = Screen.CardSaved.route,
+                arguments = listOf(navArgument("deckId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
+                CardSavedScreen(deckId = deckId, navController = navController)
             }
             composable(
                 route = Screen.EditCard.route,
