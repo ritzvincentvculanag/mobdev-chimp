@@ -1,6 +1,5 @@
 package io.github.mobdevchimp.ui.screen
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +21,6 @@ import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.components.ChimpBodyText
-import io.github.mobdevchimp.components.ChimpLargeText
 import io.github.mobdevchimp.ui.theme.macawBlue300
 
 @Composable

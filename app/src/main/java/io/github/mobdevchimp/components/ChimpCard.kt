@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.mobdevchimp.ui.theme.macawBlue500
-import io.github.mobdevchimp.ui.theme.macawBlue700
 import io.github.mobdevchimp.ui.theme.swanGray300
 import io.github.mobdevchimp.ui.theme.swanGray100
 

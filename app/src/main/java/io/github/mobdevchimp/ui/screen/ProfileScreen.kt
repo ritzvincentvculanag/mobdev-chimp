@@ -26,7 +26,6 @@ import io.github.mobdevchimp.components.ChimpCardAnalytics
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.macawBlue200
 import io.github.mobdevchimp.components.ChimpBodyText
-import io.github.mobdevchimp.components.ChimpLargeText
 import io.github.mobdevchimp.ui.theme.eelBlack300
 
 @Composable
