@@ -16,6 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.models.Deck
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
+import io.github.mobdevchimp.ui.theme.beeYellow300
+import io.github.mobdevchimp.ui.theme.beeYellow500
 import io.github.mobdevchimp.ui.theme.eelBlack100
 import io.github.mobdevchimp.ui.theme.eelBlack300
 
@@ -55,7 +57,12 @@ fun ChimpDeckItem(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             ChimpDeckItemContent(title = title, subtitle = subtitle)
-            ChimpButtonIcon(icon = Icons.Default.PlayArrow, onClick = onPlayClick)
+            ChimpButtonIcon(
+                icon = Icons.Default.PlayArrow,
+                onClick = onPlayClick,
+                foreground = beeYellow300,
+                background = beeYellow500
+            )
         }
     }
 }

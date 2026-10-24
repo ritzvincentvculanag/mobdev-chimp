@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.components.ChimpCardAnalytics
 import io.github.mobdevchimp.components.ChimpDeckItem
@@ -16,6 +17,7 @@ import io.github.mobdevchimp.components.ChimpSectionTitle
 import io.github.mobdevchimp.components.ChimpTitle
 import io.github.mobdevchimp.db.Storage
 import io.github.mobdevchimp.models.Deck
+import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 
 @Composable
 fun DashboardScreen() {
@@ -73,5 +75,13 @@ private fun DashboardDecks(
                 subtitle = "${deck.cards.size} ${if (deck.cards.size <= 1) "card" else "cards"}"
             )
         }
+    }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+private fun DashboardScreenPreview() {
+    MobdevchimpTheme {
+        DashboardScreen()
     }
 }
