@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,7 +37,10 @@ import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.NunitoFontFamily
 import io.github.mobdevchimp.ui.theme.macawBlue300
+import io.github.mobdevchimp.ui.theme.macawBlue200
+import io.github.mobdevchimp.ui.theme.macawBlue500
 import io.github.mobdevchimp.ui.theme.wolfGray100
+import kotlin.math.sin
 
 
 @Composable
@@ -131,6 +135,23 @@ fun ChimpTextFieldLarge(
         placeholder = placeholder,
         singleLine = false
     )
+}
+
+@Composable
+fun ChimpFormField(
+    label: String,
+    state: TextFieldState,
+    placeholder: String,
+    singleLine: Boolean = true
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        ChimpSectionTitle(text = label)
+        ChimpTextField(
+            state = state,
+            placeholder = placeholder,
+            singleLine = singleLine
+        )
+    }
 }
 
 @Preview

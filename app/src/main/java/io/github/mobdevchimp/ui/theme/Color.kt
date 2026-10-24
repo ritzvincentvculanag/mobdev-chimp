@@ -2,6 +2,8 @@ package io.github.mobdevchimp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val albinoWhite100: Color = Color(0xFFF9FAFB)
+
 val featherGreen100: Color = Color(0xFFEDFBE9)
 val featherGreen200: Color = Color(0xFF7EC476)
 val featherGreen300: Color = Color(0xFF50A130)
