@@ -38,6 +38,7 @@ import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.NunitoFontFamily
 import io.github.mobdevchimp.ui.theme.macawBlue300
 import io.github.mobdevchimp.ui.theme.wolfGray100
+import kotlin.math.sin
 
 
 @Composable
@@ -138,11 +139,16 @@ fun ChimpTextFieldLarge(
 fun ChimpFormField(
     label: String,
     state: TextFieldState,
-    placeholder: String
+    placeholder: String,
+    singleLine: Boolean = false
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         ChimpSectionTitle(text = label)
-        ChimpTextField(state = state, placeholder = placeholder)
+        ChimpTextField(
+            state = state,
+            placeholder = placeholder,
+            singleLine = singleLine
+        )
     }
 }
 
