@@ -26,6 +26,7 @@ import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.ChimpFormField
 import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.db.Storage
+import io.github.mobdevchimp.ui.theme.cardinalRed500
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,6 +37,7 @@ fun AddCardScreen(
 ) {
     val frontState = rememberTextFieldState("")
     val backState = rememberTextFieldState("")
+    var validationError by remember { mutableStateOf<String?>(null) }
 
     CardEditorLayout(
         title = "Add Card",
@@ -45,15 +47,22 @@ fun AddCardScreen(
         modifier = modifier,
         navController = navController,
         actionText = "Save Card",
+        validationError = validationError,
         onSave = {
-            val card = Storage.addCard(
-                deckId,
-                frontState.text.toString().trim(),
-                backState.text.toString().trim()
-            )
-            if (card != null) {
-                navController?.navigate(Screen.CardSaved.createRoute(deckId)) {
-                    popUpTo(Screen.AddCard.createRoute(deckId)) { inclusive = true }
+            val front = frontState.text.toString().trim()
+            val back = backState.text.toString().trim()
+            validationError = when {
+                front.isEmpty() && back.isEmpty() -> "Enter a question and answer."
+                front.isEmpty() -> "Enter a question before saving."
+                back.isEmpty() -> "Enter an answer before saving."
+                else -> null
+            }
+            if (validationError == null) {
+                val card = Storage.addCard(deckId, front, back)
+                if (card != null) {
+                    navController?.navigate(Screen.CardSaved.createRoute(deckId)) {
+                        popUpTo(Screen.AddCard.createRoute(deckId)) { inclusive = true }
+                    }
                 }
             }
         }
@@ -70,6 +79,7 @@ internal fun CardEditorLayout(
     modifier: Modifier,
     navController: NavController?,
     actionText: String,
+    validationError: String? = null,
     onSave: () -> Unit
 ) {
     Scaffold(
@@ -99,6 +109,12 @@ internal fun CardEditorLayout(
                 placeholder = "Enter question...",
                 singleLine = false
             )
+            if (validationError != null) {
+                io.github.mobdevchimp.components.ChimpSmallText(
+                    text = validationError,
+                    color = cardinalRed500
+                )
+            }
             ChimpFormField(
                 label = "Back (Answer)",
                 state = backState,

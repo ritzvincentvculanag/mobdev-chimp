@@ -14,6 +14,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.navigation.NavController
 import androidx.compose.ui.Modifier
@@ -23,6 +27,8 @@ import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.ChimpFormField
 import io.github.mobdevchimp.db.Storage
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
+import io.github.mobdevchimp.components.ChimpSmallText
+import io.github.mobdevchimp.ui.theme.cardinalRed500
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,6 +39,7 @@ fun EditDeckScreen(
 ) {
     val deck = deckId?.let { id -> Storage.getDecks().find { it.id == id } }
     val state = rememberTextFieldState(deck?.name.orEmpty())
+    var showValidationError by remember { mutableStateOf(false) }
 
     Scaffold(
         modifier = modifier,
@@ -59,12 +66,24 @@ fun EditDeckScreen(
                 state = state,
                 placeholder = "e.g. IT Support"
             )
+            if (showValidationError) {
+                ChimpSmallText(
+                    text = "Enter a deck name before saving.",
+                    color = cardinalRed500
+                )
+            }
             Spacer(modifier = Modifier.weight(1f))
             ChimpButton(
                 text = "Save",
                 onClick = {
-                    deckId?.let { Storage.updateDeck(it, state.text.toString()) }
-                    navController?.popBackStack()
+                    val name = state.text.toString().trim()
+                    if (name.isNotEmpty()) {
+                        showValidationError = false
+                        deckId?.let { Storage.updateDeck(it, name) }
+                        navController?.popBackStack()
+                    } else {
+                        showValidationError = true
+                    }
                 }
             )
         }
