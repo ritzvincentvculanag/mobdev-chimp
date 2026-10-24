@@ -18,16 +18,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import io.github.mobdevchimp.components.ChimpCardAnalytics
 import io.github.mobdevchimp.components.ChimpDeckItem
+import io.github.mobdevchimp.components.ChimpScreenHeader
 import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.components.ChimpSectionTitle
 import io.github.mobdevchimp.components.ChimpScreenTitle
 import io.github.mobdevchimp.db.Storage
 import io.github.mobdevchimp.models.Deck
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
+import io.github.mobdevchimp.ui.theme.macawBlue700
 
 @Composable
 fun DashboardScreen(navController: NavController) {
@@ -40,7 +43,7 @@ fun DashboardScreen(navController: NavController) {
     ) {
         val decks = Storage.getDecks()
 
-        ChimpScreenTitle(text = "Dashboard")
+        ChimpScreenHeader(title = "Dashboard")
         DashboardAnalytics()
         ChimpSectionTitle(text = "My Decks")
         DashboardDecks(

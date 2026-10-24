@@ -38,13 +38,14 @@ import io.github.mobdevchimp.ui.theme.macawBlue500
 import io.github.mobdevchimp.ui.theme.macawBlue200
 import io.github.mobdevchimp.ui.theme.macawBlue700
 import io.github.mobdevchimp.ui.theme.swanGray300
+import io.github.mobdevchimp.ui.theme.swanGray100
 import io.github.mobdevchimp.ui.theme.wolfGray100
 
 private object ChimpCardDefaults {
     val borderWidth: Dp = 2.dp
     val borderColor: Color = swanGray300
     val contentPadding: PaddingValues = PaddingValues(16.dp)
-    val containerColor: Color = Color.White
+    val containerColor: Color = swanGray100
     val shape: Shape = RoundedCornerShape(12.dp)
     val cameraDistance: Dp = 12.dp
     val flipAnimationSpec: AnimationSpec<Float> = tween(

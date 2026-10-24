@@ -10,7 +10,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.mobdevchimp.ui.theme.macawBlue700
+import io.github.mobdevchimp.ui.theme.eelBlack300
+import io.github.mobdevchimp.ui.theme.wolfGray300
 
 @Composable
 fun ChimpScreenTitle(
@@ -41,6 +42,7 @@ fun ChimpSectionTitle(
         text = text.uppercase(),
         modifier = modifier,
         fontWeight = FontWeight.Bold,
+        color = eelBlack300,
         letterSpacing = 1.2.sp
     )
 }
@@ -51,6 +53,7 @@ fun ChimpBodyText(
     modifier: Modifier = Modifier,
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Medium,
+    color: androidx.compose.ui.graphics.Color = wolfGray300,
     textAlign: TextAlign? = null
 ) {
     Text(
@@ -58,7 +61,7 @@ fun ChimpBodyText(
         modifier = modifier,
         fontSize = fontSize,
         fontWeight = fontWeight,
-        color = macawBlue700,
+        color = color,
         textAlign = textAlign
     )
 }
@@ -68,6 +71,7 @@ fun ChimpSmallText(
     text: String,
     modifier: Modifier = Modifier,
     fontWeight: FontWeight = FontWeight.Medium,
+    color: androidx.compose.ui.graphics.Color = wolfGray300,
     letterSpacing: TextUnit = TextUnit.Unspecified
 ) {
     Text(
@@ -76,7 +80,7 @@ fun ChimpSmallText(
         fontSize = 14.sp,
         fontWeight = fontWeight,
         letterSpacing = letterSpacing,
-        color = macawBlue700
+        color = color
     )
 }
 
@@ -84,13 +88,15 @@ fun ChimpSmallText(
 fun ChimpLargeText(
     text: String,
     modifier: Modifier = Modifier,
-    fontWeight: FontWeight = FontWeight.Medium
+    fontWeight: FontWeight = FontWeight.Medium,
+    color: androidx.compose.ui.graphics.Color = eelBlack300
 ) {
     ChimpBodyText(
         text = text,
         modifier = modifier,
         fontSize = 18.sp,
-        fontWeight = fontWeight
+        fontWeight = fontWeight,
+        color = color
     )
 }
 
@@ -104,6 +110,7 @@ fun ChimpCardFlipText(
         text = text,
         modifier = modifier,
         fontWeight = FontWeight.Bold,
+        color = eelBlack300,
         textAlign = textAlign
     )
 }
@@ -118,9 +125,9 @@ fun ChimpTopBarText(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        ChimpLargeText(text = text, fontWeight = FontWeight.Bold)
+        ChimpLargeText(text = text, fontWeight = FontWeight.Bold, color = eelBlack300)
         if (description.isNotEmpty()) {
-            ChimpSmallText(text = description)
+            ChimpSmallText(text = description, color = wolfGray300)
         }
     }
 }
@@ -135,7 +142,11 @@ fun ChimpScreenHeader(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        ChimpScreenTitle(text = title)
+        Text(
+            text = title,
+            fontSize = 28.sp,
+            color = eelBlack300
+        )
         if (description.isNotEmpty()) {
             ChimpDescription(text = description)
         }

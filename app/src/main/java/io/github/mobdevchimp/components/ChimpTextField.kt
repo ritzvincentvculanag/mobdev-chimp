@@ -39,6 +39,7 @@ import io.github.mobdevchimp.ui.theme.NunitoFontFamily
 import io.github.mobdevchimp.ui.theme.macawBlue300
 import io.github.mobdevchimp.ui.theme.macawBlue200
 import io.github.mobdevchimp.ui.theme.macawBlue500
+import io.github.mobdevchimp.ui.theme.wolfGray100
 import kotlin.math.sin
 
 
@@ -46,10 +47,10 @@ import kotlin.math.sin
 fun ChimpTextField(
     state: TextFieldState,
     placeholder: String = "",
-    unfocusedBorderColor: Color = macawBlue200,
-    focusedBorderColor: Color = macawBlue500,
+    unfocusedBorderColor: Color = wolfGray100,
+    focusedBorderColor: Color = macawBlue300,
     backgroundColor: Color = Color.White,
-    placeholderColor: Color = macawBlue200,
+    placeholderColor: Color = wolfGray100,
     borderWidth: Dp = 2.dp,
     fontSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize,
     cornerRadius: Dp = 12.dp,

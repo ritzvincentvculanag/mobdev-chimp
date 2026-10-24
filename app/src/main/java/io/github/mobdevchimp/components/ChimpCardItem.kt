@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.sp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.cardinalRed300
 import io.github.mobdevchimp.models.Card
+import io.github.mobdevchimp.ui.theme.eelBlack300
+import io.github.mobdevchimp.ui.theme.wolfGray300
 
 @Composable
 fun ChimpCardItem(
@@ -35,8 +37,16 @@ fun ChimpCardItem(
                     alignment = Alignment.CenterVertically
                 )
             ) {
-                ChimpBodyText(text = card.front, fontWeight = FontWeight.Bold)
-                ChimpBodyText(text = card.back, fontSize = 14.sp)
+                ChimpBodyText(
+                    text = card.front,
+                    fontWeight = FontWeight.Bold,
+                    color = eelBlack300
+                )
+                ChimpBodyText(
+                    text = card.back,
+                    fontSize = 14.sp,
+                    color = wolfGray300
+                )
             }
             IconButton(onClick = onDeleteClick) {
                 Icon(

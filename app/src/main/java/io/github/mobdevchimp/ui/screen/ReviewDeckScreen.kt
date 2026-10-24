@@ -45,7 +45,6 @@ import io.github.mobdevchimp.db.Storage
 import io.github.mobdevchimp.ui.theme.beeYellow100
 import io.github.mobdevchimp.ui.theme.beeYellow300
 import io.github.mobdevchimp.ui.theme.eelBlack300
-import io.github.mobdevchimp.ui.theme.macawBlue700
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -158,7 +157,7 @@ fun ReviewDeckScreen(
                     Icon(
                         imageVector = Icons.Default.TouchApp,
                         contentDescription = "Tap to flip",
-                        tint = macawBlue700
+                        tint = eelBlack300
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     ChimpSmallText(text = "Tap to flip")
