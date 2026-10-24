@@ -9,7 +9,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import io.github.mobdevchimp.db.Storage
-import io.github.mobdevchimp.ui.theme.cardinalRed500
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

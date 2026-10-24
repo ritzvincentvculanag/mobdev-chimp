@@ -37,10 +37,7 @@ import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.NunitoFontFamily
 import io.github.mobdevchimp.ui.theme.macawBlue300
-import io.github.mobdevchimp.ui.theme.macawBlue200
-import io.github.mobdevchimp.ui.theme.macawBlue500
 import io.github.mobdevchimp.ui.theme.wolfGray100
-import kotlin.math.sin
 
 
 @Composable

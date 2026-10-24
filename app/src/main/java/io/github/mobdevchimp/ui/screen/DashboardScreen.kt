@@ -30,7 +30,6 @@ import io.github.mobdevchimp.components.ChimpScreenTitle
 import io.github.mobdevchimp.db.Storage
 import io.github.mobdevchimp.models.Deck
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
-import io.github.mobdevchimp.ui.theme.macawBlue700
 
 @Composable
 fun DashboardScreen(navController: NavController) {
