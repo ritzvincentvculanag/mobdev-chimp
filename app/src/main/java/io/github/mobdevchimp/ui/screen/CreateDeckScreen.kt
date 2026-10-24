@@ -10,21 +10,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.ChimpFormField
 import io.github.mobdevchimp.components.ChimpScreenHeader
+import io.github.mobdevchimp.components.Screen
+import io.github.mobdevchimp.db.Storage
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 
 @Composable
-fun CreateDeckScreen(modifier: Modifier = Modifier) {
+fun CreateDeckScreen(
+    navController: NavController? = null,
+    modifier: Modifier = Modifier
+) {
+    val state = rememberTextFieldState("")
+
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        val state = rememberTextFieldState("")
-
         ChimpScreenHeader(
             title = "New Deck",
             description = "Create a focus topic to organize your cards."
@@ -35,7 +41,16 @@ fun CreateDeckScreen(modifier: Modifier = Modifier) {
             placeholder = "e.g. IT Support"
         )
         Spacer(modifier = Modifier.weight(1f))
-        ChimpButton(text = "Create")
+        ChimpButton(
+            text = "Create",
+            onClick = {
+                val name = state.text.toString().trim()
+                if (name.isNotEmpty()) {
+                    val deck = Storage.addDeck(name)
+                    navController?.navigate(Screen.DeckInformation.createRoute(deck.id))
+                }
+            }
+        )
     }
 }
 

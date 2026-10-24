@@ -11,8 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import io.github.mobdevchimp.components.ChimpCardAnalytics
 import io.github.mobdevchimp.components.ChimpDeckItem
+import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.components.ChimpSectionTitle
 import io.github.mobdevchimp.components.ChimpTitle
 import io.github.mobdevchimp.db.Storage
@@ -20,23 +23,24 @@ import io.github.mobdevchimp.models.Deck
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 
 @Composable
-fun DashboardScreen() {
+fun DashboardScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        val storage = Storage()
-        val decks = storage.getDecks()
+        val decks = Storage.getDecks()
 
         ChimpTitle(text = "Dashboard")
         DashboardAnalytics()
         ChimpSectionTitle(text = "My Decks")
         DashboardDecks(
             decks = decks,
-            onCardClick = { deck -> println("Redirecting to details for deck id ${deck.id}") },
-            onPlayClick = { deck -> println("Now playing deck with deck id ${deck.id}") }
+            onCardClick = { deck -> navController.navigate(Screen.DeckInformation.createRoute(deck.id)) },
+            onPlayClick = { deck ->
+                navController.navigate(Screen.ReviewDeck.createRoute(deck.id))
+            }
         )
     }
 }
@@ -82,6 +86,6 @@ private fun DashboardDecks(
 @Composable
 private fun DashboardScreenPreview() {
     MobdevchimpTheme {
-        DashboardScreen()
+        DashboardScreen(navController = rememberNavController())
     }
 }

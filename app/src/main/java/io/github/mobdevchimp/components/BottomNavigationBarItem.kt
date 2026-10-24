@@ -9,7 +9,17 @@ data class NavigationItem(
 )
 
 sealed class Screen(val route: String) {
+    object GetStarted: Screen("get_started_screen")
     object Dashboard: Screen("dashboard_screen")
     object CreateDeck: Screen("create_deck_screen")
     object Profile: Screen("profile_screen")
+    object DeckInformation: Screen("deck_information_screen/{deckId}") {
+        fun createRoute(deckId: Int) = "deck_information_screen/$deckId"
+    }
+    object EditDeck: Screen("edit_deck_screen/{deckId}") {
+        fun createRoute(deckId: Int) = "edit_deck_screen/$deckId"
+    }
+    object ReviewDeck: Screen("review_deck_screen/{deckId}") {
+        fun createRoute(deckId: Int) = "review_deck_screen/$deckId"
+    }
 }

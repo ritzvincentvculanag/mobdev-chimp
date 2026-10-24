@@ -17,13 +17,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import io.github.mobdevchimp.components.ChimpButton
+import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.macawBlue500
 import io.github.mobdevchimp.ui.theme.wolfGray100
 
 @Composable
-fun GetStartedScreen(modifier: Modifier) {
+fun GetStartedScreen(
+    navController: NavController? = null,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -49,7 +54,16 @@ fun GetStartedScreen(modifier: Modifier) {
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.weight(1f))
-        ChimpButton(text = "Get Started", onClick = {})
+        ChimpButton(
+            text = "Get Started",
+            onClick = {
+                navController?.navigate(Screen.Dashboard.route) {
+                    popUpTo(Screen.GetStarted.route) {
+                        inclusive = true
+                    }
+                }
+            }
+        )
     }
 }
 
