@@ -37,10 +37,12 @@ import androidx.compose.ui.unit.sp
 import io.github.mobdevchimp.ui.theme.macawBlue500
 import io.github.mobdevchimp.ui.theme.macawBlue200
 import io.github.mobdevchimp.ui.theme.macawBlue700
+import io.github.mobdevchimp.ui.theme.swanGray300
+import io.github.mobdevchimp.ui.theme.wolfGray100
 
 private object ChimpCardDefaults {
     val borderWidth: Dp = 2.dp
-    val borderColor: Color = macawBlue200
+    val borderColor: Color = swanGray300
     val contentPadding: PaddingValues = PaddingValues(16.dp)
     val containerColor: Color = Color.White
     val shape: Shape = RoundedCornerShape(12.dp)
