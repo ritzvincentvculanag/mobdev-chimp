@@ -35,11 +35,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.mobdevchimp.ui.theme.macawBlue500
-import io.github.mobdevchimp.ui.theme.macawBlue200
-import io.github.mobdevchimp.ui.theme.macawBlue700
 import io.github.mobdevchimp.ui.theme.swanGray300
 import io.github.mobdevchimp.ui.theme.swanGray100
-import io.github.mobdevchimp.ui.theme.wolfGray100
 
 private object ChimpCardDefaults {
     val borderWidth: Dp = 2.dp

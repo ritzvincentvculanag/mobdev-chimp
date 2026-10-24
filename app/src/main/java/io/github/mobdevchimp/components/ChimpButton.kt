@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.macawBlue300
 import io.github.mobdevchimp.ui.theme.macawBlue500
-import io.github.mobdevchimp.ui.theme.macawBlue100
 import io.github.mobdevchimp.ui.theme.swanGray300
 
 private object ChimpButtonDefaults {

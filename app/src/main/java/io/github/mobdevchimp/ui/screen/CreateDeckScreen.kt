@@ -7,6 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -14,9 +18,11 @@ import androidx.navigation.NavController
 import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.ChimpFormField
 import io.github.mobdevchimp.components.ChimpScreenHeader
+import io.github.mobdevchimp.components.ChimpSmallText
 import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.db.Storage
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
+import io.github.mobdevchimp.ui.theme.cardinalRed500
 
 @Composable
 fun CreateDeckScreen(
@@ -24,6 +30,7 @@ fun CreateDeckScreen(
     modifier: Modifier = Modifier
 ) {
     val state = rememberTextFieldState("")
+    var showValidationError by remember { mutableStateOf(false) }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -40,16 +47,25 @@ fun CreateDeckScreen(
             state = state,
             placeholder = "e.g. IT Support"
         )
+        if (showValidationError) {
+            ChimpSmallText(
+                text = "Enter a deck name before continuing.",
+                color = cardinalRed500
+            )
+        }
         Spacer(modifier = Modifier.weight(1f))
         ChimpButton(
             text = "Create",
             onClick = {
                 val name = state.text.toString().trim()
                 if (name.isNotEmpty()) {
+                    showValidationError = false
                     val deck = Storage.addDeck(name)
                     navController?.navigate(Screen.AddCard.createRoute(deck.id)) {
                         popUpTo(Screen.CreateDeck.route) { inclusive = true }
                     }
+                } else {
+                    showValidationError = true
                 }
             }
         )
