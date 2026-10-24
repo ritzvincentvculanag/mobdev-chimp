@@ -140,7 +140,7 @@ fun ChimpFormField(
     label: String,
     state: TextFieldState,
     placeholder: String,
-    singleLine: Boolean = false
+    singleLine: Boolean = true
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         ChimpSectionTitle(text = label)
