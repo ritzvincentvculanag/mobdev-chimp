@@ -34,10 +34,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.mobdevchimp.ui.theme.eelBlack100
 import io.github.mobdevchimp.ui.theme.macawBlue500
-import io.github.mobdevchimp.ui.theme.swanGray100
+import io.github.mobdevchimp.ui.theme.macawBlue700
 import io.github.mobdevchimp.ui.theme.swanGray300
+import io.github.mobdevchimp.ui.theme.swanGray100
 
 private object ChimpCardDefaults {
     val borderWidth: Dp = 2.dp
@@ -93,15 +93,13 @@ fun ChimpCardAnalytics(
         ) {
             Text(
                 text = value.toString(),
-                fontSize = 28.sp,
-                fontWeight = FontWeight.ExtraBold,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
                 color = macawBlue500
             )
-            Text(
+            ChimpBodyText(
                 text = title.uppercase(),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = eelBlack100
+                fontWeight = FontWeight.Bold
             )
         }
     }
@@ -114,6 +112,10 @@ fun ChimpCardFlip(
     modifier: Modifier = Modifier,
     initialFlipped: Boolean = false,
     onFlippedChange: ((Boolean) -> Unit)? = null,
+    frontColor: Color = ChimpCardDefaults.containerColor,
+    backColor: Color = ChimpCardDefaults.containerColor,
+    borderColor: Color = ChimpCardDefaults.borderColor,
+    enabled: Boolean = true,
     animationSpec: AnimationSpec<Float> = ChimpCardDefaults.flipAnimationSpec,
     cameraDistance: Dp = ChimpCardDefaults.cameraDistance,
     onClickLabel: String? = null
@@ -129,6 +131,10 @@ fun ChimpCardFlip(
         front = front,
         back = back,
         modifier = modifier,
+        frontColor = frontColor,
+        backColor = backColor,
+        borderColor = borderColor,
+        enabled = enabled,
         animationSpec = animationSpec,
         cameraDistance = cameraDistance,
         onClickLabel = onClickLabel
@@ -142,6 +148,10 @@ fun ChimpCardFlip(
     front: @Composable () -> Unit,
     back: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    frontColor: Color = ChimpCardDefaults.containerColor,
+    backColor: Color = ChimpCardDefaults.containerColor,
+    borderColor: Color = ChimpCardDefaults.borderColor,
+    enabled: Boolean = true,
     animationSpec: AnimationSpec<Float> = ChimpCardDefaults.flipAnimationSpec,
     cameraDistance: Dp = ChimpCardDefaults.cameraDistance,
     onClickLabel: String? = null
@@ -161,13 +171,21 @@ fun ChimpCardFlip(
                 rotationY = rotation
                 this.cameraDistance = cameraDistancePx
             }
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClickLabel = onClickLabel,
-                role = Role.Button,
-                onClick = { onFlippedChange(!flipped) }
-            )
+            .then(
+                if (enabled) {
+                    Modifier.clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClickLabel = onClickLabel,
+                        role = Role.Button,
+                        onClick = { onFlippedChange(!flipped) }
+                    )
+                } else {
+                    Modifier
+                }
+            ),
+        containerColor = if (showFront) frontColor else backColor,
+        borderColor = borderColor
     ) {
         if (showFront) {
             Box(

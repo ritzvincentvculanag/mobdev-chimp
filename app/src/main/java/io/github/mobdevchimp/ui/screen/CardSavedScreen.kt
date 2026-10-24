@@ -21,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.ChimpButtonOutlined
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
@@ -28,7 +30,11 @@ import io.github.mobdevchimp.ui.theme.macawBlue100
 import io.github.mobdevchimp.ui.theme.macawBlue500
 
 @Composable
-fun CardSavedScreen(modifier: Modifier = Modifier) {
+fun CardSavedScreen(
+    deckId: Int,
+    navController: NavController? = null,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -62,12 +68,20 @@ fun CardSavedScreen(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.weight(1f))
         ChimpButton(
             text = "Add Another Card",
-            onClick = {}
+            onClick = {
+                navController?.navigate(Screen.AddCard.createRoute(deckId)) {
+                    popUpTo(Screen.CardSaved.createRoute(deckId)) { inclusive = true }
+                }
+            }
         )
         Spacer(modifier = Modifier.height(8.dp))
         ChimpButtonOutlined(
             text = "Done",
-            onClick = {}
+            onClick = {
+                navController?.navigate(Screen.DeckInformation.createRoute(deckId)) {
+                    popUpTo(Screen.CardSaved.createRoute(deckId)) { inclusive = true }
+                }
+            }
         )
     }
 }
@@ -77,7 +91,7 @@ fun CardSavedScreen(modifier: Modifier = Modifier) {
 private fun CardSavedScreenPreview() {
     MobdevchimpTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPaddings ->
-            CardSavedScreen(modifier = Modifier.padding(innerPaddings))
+            CardSavedScreen(deckId = 1, modifier = Modifier.padding(innerPaddings))
         }
     }
 }

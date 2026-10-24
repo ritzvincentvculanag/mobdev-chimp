@@ -24,9 +24,10 @@ import androidx.compose.ui.unit.sp
 import io.github.mobdevchimp.components.ChimpButtonIcon
 import io.github.mobdevchimp.components.ChimpCardAnalytics
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
-import io.github.mobdevchimp.ui.theme.eelBlack300
 import io.github.mobdevchimp.ui.theme.macawBlue200
-import io.github.mobdevchimp.ui.theme.wolfGray100
+import io.github.mobdevchimp.components.ChimpBodyText
+import io.github.mobdevchimp.components.ChimpLargeText
+import io.github.mobdevchimp.ui.theme.eelBlack300
 
 @Composable
 fun ProfileScreen(modifier: Modifier = Modifier) {
@@ -59,17 +60,13 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                 ) {
                     Column {
                         Text(
-                            text = "Arvee D Great",
-                            fontSize = 24.sp,
+                            text = "Juan Dela Cruz",
                             fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp,
                             color = eelBlack300
                         )
                         Spacer(modifier = Modifier.height(2.dp))
-                        Text(
-                            text = "Joined September 2026",
-                            fontSize = 14.sp,
-                            color = wolfGray100
-                        )
+                        ChimpBodyText(text = "Joined September 2026", fontSize = 16.sp)
                     }
                     ChimpButtonIcon(icon = Icons.Default.Edit) { }
                 }
@@ -82,7 +79,7 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     ChimpCardAnalytics(
                         value = 4,

@@ -3,8 +3,14 @@ package io.github.mobdevchimp.db
 import io.github.mobdevchimp.models.Card
 import io.github.mobdevchimp.models.Deck
 
-class Storage {
+data class SessionResult(
+    val totalCards: Int,
+    val missedCards: List<Card>
+)
+
+object Storage {
     private var decks = mutableListOf<Deck>()
+    private val sessionResults = mutableMapOf<Int, SessionResult>()
     private val biologyCards: List<Card> = listOf(
         Card(
             id = 1,
@@ -140,4 +146,71 @@ class Storage {
     }
 
     fun getDecks(): List<Deck> = decks
+}
+
+    fun addDeck(name: String): Deck {
+        val deck = Deck(
+            id = (decks.maxOfOrNull { it.id } ?: 0) + 1,
+            name = name
+        )
+        decks.add(deck)
+        return deck
+    }
+
+    fun deleteDeck(deckId: Int) {
+        decks.removeAll { it.id == deckId }
+    }
+
+    fun updateDeck(deckId: Int, name: String) {
+        val index = decks.indexOfFirst { it.id == deckId }
+        if (index >= 0) {
+            decks[index] = decks[index].copy(name = name)
+        }
+    }
+
+    fun addCard(deckId: Int, front: String, back: String): Card? {
+        val deckIndex = decks.indexOfFirst { it.id == deckId }
+        if (deckIndex < 0) return null
+        val card = Card(
+            id = (decks.flatMap { it.cards }.maxOfOrNull { it.id } ?: 0) + 1,
+            deckId = deckId,
+            front = front,
+            back = back
+        )
+        decks[deckIndex] = decks[deckIndex].copy(cards = decks[deckIndex].cards + card)
+        return card
+    }
+
+    fun updateCard(deckId: Int, cardId: Int, front: String, back: String) {
+        val deckIndex = decks.indexOfFirst { it.id == deckId }
+        if (deckIndex < 0) return
+        decks[deckIndex] = decks[deckIndex].copy(
+            cards = decks[deckIndex].cards.map { card ->
+                if (card.id == cardId) card.copy(front = front, back = back) else card
+            }
+        )
+    }
+
+    fun deleteCard(deckId: Int, cardId: Int) {
+        val deckIndex = decks.indexOfFirst { it.id == deckId }
+        if (deckIndex < 0) return
+        decks[deckIndex] = decks[deckIndex].copy(
+            cards = decks[deckIndex].cards.filterNot { it.id == cardId }
+        )
+    }
+
+    fun getReviewCards(deckId: Int, missedOnly: Boolean): List<Card> {
+        val deckCards = decks.firstOrNull { it.id == deckId }?.cards.orEmpty()
+        return if (missedOnly) {
+            sessionResults[deckId]?.missedCards.orEmpty()
+        } else {
+            deckCards
+        }
+    }
+
+    fun saveSessionResult(deckId: Int, totalCards: Int, missedCards: List<Card>) {
+        sessionResults[deckId] = SessionResult(totalCards, missedCards)
+    }
+
+    fun getSessionResult(deckId: Int): SessionResult? = sessionResults[deckId]
 }

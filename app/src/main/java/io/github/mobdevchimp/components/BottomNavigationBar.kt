@@ -10,16 +10,15 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import io.github.mobdevchimp.ui.theme.macawBlue100
 import io.github.mobdevchimp.ui.theme.macawBlue200
 import io.github.mobdevchimp.ui.theme.macawBlue500
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    val selectedNavigationIndex = rememberSaveable { mutableIntStateOf(0) }
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     val navigationItems = listOf(
         NavigationItem(
             title = "Dashboard",
@@ -39,14 +38,19 @@ fun BottomNavigationBar(navController: NavController) {
     )
 
     NavigationBar(containerColor = macawBlue100) {
-        navigationItems.forEachIndexed { index, item ->
+        navigationItems.forEach { item ->
             NavigationBarItem(
-                selected = selectedNavigationIndex.intValue == index,
+                selected = currentRoute == item.route,
                 icon = { Icon(imageVector = item.icon, contentDescription = item.title) },
                 label = { Text(text = item.title )},
                 onClick = {
-                    selectedNavigationIndex.intValue = index
-                    navController.navigate(item.route)
+                    navController.navigate(item.route) {
+                        popUpTo(Screen.Dashboard.route) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = macawBlue500,
@@ -59,4 +63,3 @@ fun BottomNavigationBar(navController: NavController) {
         }
     }
 }
-

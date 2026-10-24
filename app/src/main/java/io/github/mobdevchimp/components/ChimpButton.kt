@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.macawBlue300
 import io.github.mobdevchimp.ui.theme.macawBlue500
+import io.github.mobdevchimp.ui.theme.macawBlue100
 import io.github.mobdevchimp.ui.theme.swanGray300
 
 private object ChimpButtonDefaults {
@@ -113,6 +114,7 @@ fun ChimpButtonContainer(
 @Composable
 fun ChimpButton(
     text: String,
+    modifier: Modifier = Modifier,
     radius: Dp = ChimpButtonDefaults.radius,
     foreground: Color = ChimpButtonDefaults.foreground,
     background: Color = ChimpButtonDefaults.background,
@@ -130,6 +132,7 @@ fun ChimpButton(
 
     Box(
         modifier = Modifier
+            .then(modifier)
             .then(width)
             .height(ChimpButtonDefaults.size + 4.dp)
             .clickable(
@@ -172,6 +175,7 @@ fun ChimpButton(
 @Composable
 fun ChimpButtonOutlined(
     text: String,
+    modifier: Modifier = Modifier,
     background: Color = swanGray300,
     radius: Dp = ChimpButtonDefaults.radius,
     foreground: Color = Color.White,
@@ -181,6 +185,7 @@ fun ChimpButtonOutlined(
 ) {
     ChimpButton(
         text = text,
+        modifier = modifier,
         radius = radius,
         foreground = foreground,
         background = background,
