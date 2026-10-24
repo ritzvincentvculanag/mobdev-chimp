@@ -18,12 +18,15 @@ import androidx.navigation.compose.rememberNavController
 import io.github.mobdevchimp.components.BottomNavigationBar
 import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.ui.screen.CreateDeckScreen
+import io.github.mobdevchimp.ui.screen.AddCardScreen
 import io.github.mobdevchimp.ui.screen.DeckInformationScreen
 import io.github.mobdevchimp.ui.screen.DashboardScreen
+import io.github.mobdevchimp.ui.screen.EditCardScreen
 import io.github.mobdevchimp.ui.screen.EditDeckScreen
 import io.github.mobdevchimp.ui.screen.GetStartedScreen
 import io.github.mobdevchimp.ui.screen.ProfileScreen
 import io.github.mobdevchimp.ui.screen.ReviewDeckScreen
+import io.github.mobdevchimp.ui.screen.SessionSummaryScreen
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 
 class MainActivity : ComponentActivity() {
@@ -84,11 +87,48 @@ fun MainScreen() {
                 EditDeckScreen(deckId = deckId, navController = navController)
             }
             composable(
-                route = Screen.ReviewDeck.route,
+                route = Screen.AddCard.route,
                 arguments = listOf(navArgument("deckId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
-                ReviewDeckScreen(deckId = deckId, navController = navController)
+                AddCardScreen(deckId = deckId, navController = navController)
+            }
+            composable(
+                route = Screen.EditCard.route,
+                arguments = listOf(
+                    navArgument("deckId") { type = NavType.IntType },
+                    navArgument("cardId") { type = NavType.IntType }
+                )
+            ) { backStackEntry ->
+                val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
+                val cardId = backStackEntry.arguments?.getInt("cardId") ?: return@composable
+                EditCardScreen(
+                    deckId = deckId,
+                    cardId = cardId,
+                    navController = navController
+                )
+            }
+            composable(
+                route = Screen.ReviewDeck.route,
+                arguments = listOf(
+                    navArgument("deckId") { type = NavType.IntType },
+                    navArgument("missedOnly") { type = NavType.BoolType }
+                )
+            ) { backStackEntry ->
+                val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
+                val missedOnly = backStackEntry.arguments?.getBoolean("missedOnly") ?: false
+                ReviewDeckScreen(
+                    deckId = deckId,
+                    missedOnly = missedOnly,
+                    navController = navController
+                )
+            }
+            composable(
+                route = Screen.SessionSummary.route,
+                arguments = listOf(navArgument("deckId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
+                SessionSummaryScreen(deckId = deckId, navController = navController)
             }
         }
     }

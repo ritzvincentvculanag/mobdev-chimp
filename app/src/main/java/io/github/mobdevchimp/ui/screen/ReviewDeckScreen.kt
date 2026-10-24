@@ -3,52 +3,101 @@ package io.github.mobdevchimp.ui.screen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.key
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.TouchApp
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import io.github.mobdevchimp.components.ChimpBodyTextMedium
 import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.ChimpButtonOutlined
 import io.github.mobdevchimp.components.ChimpCardFlip
+import io.github.mobdevchimp.components.ChimpScreenHeader
+import io.github.mobdevchimp.components.ChimpTopBarText
+import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.db.Storage
+import io.github.mobdevchimp.ui.theme.beeYellow100
+import io.github.mobdevchimp.ui.theme.beeYellow300
+import io.github.mobdevchimp.ui.theme.eelBlack300
+import io.github.mobdevchimp.ui.theme.wolfGray300
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 fun ReviewDeckScreen(
     deckId: Int,
+    missedOnly: Boolean = false,
     navController: NavController? = null,
     modifier: Modifier = Modifier
 ) {
     val deck = Storage.getDecks().find { it.id == deckId }
-    val queue = remember(deckId) { mutableStateListOf(*(deck?.cards.orEmpty().toTypedArray())) }
-    var cardIndex by remember(deckId) { mutableIntStateOf(0) }
+    val initialCards = remember(deckId, missedOnly) {
+        Storage.getReviewCards(deckId, missedOnly)
+    }
+    val queue = remember(deckId, missedOnly) {
+        mutableStateListOf(*initialCards.toTypedArray())
+    }
+    val missedCards = remember(deckId, missedOnly) { mutableStateListOf<io.github.mobdevchimp.models.Card>() }
+    var cardIndex by remember(deckId, missedOnly) { mutableIntStateOf(0) }
+    var isFlipped by remember(queue.getOrNull(cardIndex)?.id) { mutableStateOf(false) }
     val card = queue.getOrNull(cardIndex)
+
+    LaunchedEffect(cardIndex, queue.size) {
+        isFlipped = false
+        if (card == null) {
+            Storage.saveSessionResult(deckId, initialCards.size, missedCards.toList())
+            navController?.navigate(Screen.SessionSummary.createRoute(deckId)) {
+                popUpTo(Screen.ReviewDeck.createRoute(deckId, missedOnly)) { inclusive = true }
+            }
+        }
+    }
 
     Scaffold(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = { Text(deck?.name ?: "Review") },
+                title = {
+                    Column {
+
+                        ChimpTopBarText(
+                            text = deck?.name.toString(),
+                            description = "${initialCards.size} ${if (initialCards.size == 1) "card" else "cards"} available"
+                        )
+                    }
+                },
                 navigationIcon = {
                     IconButton(onClick = { navController?.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = eelBlack300
+                        )
                     }
                 }
             )
@@ -62,36 +111,70 @@ fun ReviewDeckScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            if (card == null) {
-                Text("You reviewed all the cards.")
-            } else {
+            if (card != null) {
+                Text(
+                    text = "${cardIndex + 1} out of ${initialCards.size}",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                    textAlign = TextAlign.Center
+                )
                 key(card.id) {
                     ChimpCardFlip(
                         modifier = Modifier
-                            .fillMaxSize()
+                            .fillMaxWidth()
                             .weight(1f),
-                        front = { ChimpBodyTextMedium(card.front) },
-                        back = { ChimpBodyTextMedium(card.back) }
+                        onFlippedChange = { isFlipped = it },
+                        frontColor = beeYellow100,
+                        backColor = beeYellow300,
+                        front = {
+                            Text(
+                                text = card.front,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black,
+                                textAlign = TextAlign.Center
+                            )
+                        },
+                        back = {
+                            Text(
+                                text = card.back,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black,
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     )
                 }
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    ChimpButtonOutlined(
-                        text = "Review",
-                        modifier = Modifier.weight(1f),
-                        onClick = {
-                            val reviewedCard = queue.removeAt(cardIndex)
-                            queue.add(reviewedCard)
-                            if (cardIndex >= queue.size) cardIndex = 0
-                        }
+                if (isFlipped) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        ChimpButtonOutlined(
+                            text = "Review Again",
+                            modifier = Modifier.weight(1f),
+                            onClick = {
+                                missedCards.add(card)
+                                cardIndex++
+                            }
+                        )
+                        ChimpButton(
+                            text = "Got It",
+                            modifier = Modifier.weight(1f),
+                            onClick = { cardIndex++ }
+                        )
+                    }
+                }
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Icon(
+                        imageVector = Icons.Default.TouchApp,
+                        contentDescription = "Tap to flip",
+                        tint = wolfGray300
                     )
-                    ChimpButton(
-                        text = "Got it",
-                        modifier = Modifier.weight(1f),
-                        onClick = {
-                            queue.removeAt(cardIndex)
-                            if (cardIndex >= queue.size) cardIndex = 0
-                        }
-                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    ChimpBodyTextMedium(text = "Tap to flip")
                 }
             }
         }

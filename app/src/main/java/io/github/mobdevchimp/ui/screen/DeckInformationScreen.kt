@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -48,8 +49,15 @@ fun DeckInformationScreen(
     modifier: Modifier = Modifier
 ) {
     val deck = Storage.getDecks().find { it.id == deckId }
+    var deletedCardIds by remember { mutableStateOf(emptySet<Int>()) }
+    val cards = Storage.getDecks()
+        .firstOrNull { it.id == deckId }
+        ?.cards
+        .orEmpty()
+        .filterNot { it.id in deletedCardIds }
     var menuExpanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
+    var showEmptyDeckDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         modifier = modifier,
@@ -103,26 +111,48 @@ fun DeckInformationScreen(
                     foreground = beeYellow300,
                     background = beeYellow500,
                     onClick = {
-                        navController?.navigate(Screen.ReviewDeck.createRoute(deckId))
+                        if (cards.isEmpty()) {
+                            showEmptyDeckDialog = true
+                        } else {
+                            navController?.navigate(Screen.ReviewDeck.createRoute(deckId))
+                        }
                     }
                 )
                 ChimpButton(
                     text = "Match Game",
                     modifier = Modifier.weight(1f),
                     foreground = beetlePurple300,
-                    background = beetlePurple500
+                    background = beetlePurple500,
+                    onClick = { showEmptyDeckDialog = cards.isEmpty() }
                 )
             }
             ChimpSectionTitle(text = "Your Cards")
-            if (deck?.cards.isNullOrEmpty()) {
+            if (cards.isEmpty()) {
                 Text("This deck is empty.")
             } else {
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    items(deck?.cards.orEmpty(), key = { it.id }) { card ->
-                        ChimpCardItem(card = card)
+                LazyColumn(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(cards, key = { it.id }) { card ->
+                        ChimpCardItem(
+                            card = card,
+                            onClick = {
+                                navController?.navigate(Screen.EditCard.createRoute(deckId, card.id))
+                            },
+                            onDeleteClick = {
+                                Storage.deleteCard(deckId, card.id)
+                                deletedCardIds = deletedCardIds + card.id
+                            }
+                        )
                     }
                 }
             }
+            ChimpButton(
+                text = "Add Card",
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navController?.navigate(Screen.AddCard.createRoute(deckId)) }
+            )
         }
     }
 
@@ -145,6 +175,19 @@ fun DeckInformationScreen(
             dismissButton = {
                 Button(onClick = { showDeleteDialog = false }) {
                     Text("Cancel")
+                }
+
+                if (showEmptyDeckDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showEmptyDeckDialog = false },
+                        title = { Text("Deck is empty") },
+                        text = { Text("Add cards to this deck before starting a study session.") },
+                        confirmButton = {
+                            Button(onClick = { showEmptyDeckDialog = false }) {
+                                Text("OK")
+                            }
+                        }
+                    )
                 }
             }
         )

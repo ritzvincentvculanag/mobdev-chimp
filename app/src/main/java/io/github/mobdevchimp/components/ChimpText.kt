@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -60,5 +61,26 @@ fun ChimpScreenHeader(
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         ChimpTitle(text = title)
         ChimpBodyTextMedium(text = description)
+    }
+}
+
+@Composable
+fun ChimpTopBarText(
+    text: String,
+    description: String = ""
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(
+            text = text,
+            fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+            fontWeight = FontWeight.Bold,
+            color = eelBlack300
+        )
+        Text(
+            text = description,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            color = wolfGray300
+        )
     }
 }

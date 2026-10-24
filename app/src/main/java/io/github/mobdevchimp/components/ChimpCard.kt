@@ -114,6 +114,8 @@ fun ChimpCardFlip(
     modifier: Modifier = Modifier,
     initialFlipped: Boolean = false,
     onFlippedChange: ((Boolean) -> Unit)? = null,
+    frontColor: Color = ChimpCardDefaults.containerColor,
+    backColor: Color = ChimpCardDefaults.containerColor,
     animationSpec: AnimationSpec<Float> = ChimpCardDefaults.flipAnimationSpec,
     cameraDistance: Dp = ChimpCardDefaults.cameraDistance,
     onClickLabel: String? = null
@@ -129,6 +131,8 @@ fun ChimpCardFlip(
         front = front,
         back = back,
         modifier = modifier,
+        frontColor = frontColor,
+        backColor = backColor,
         animationSpec = animationSpec,
         cameraDistance = cameraDistance,
         onClickLabel = onClickLabel
@@ -142,6 +146,8 @@ fun ChimpCardFlip(
     front: @Composable () -> Unit,
     back: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    frontColor: Color = ChimpCardDefaults.containerColor,
+    backColor: Color = ChimpCardDefaults.containerColor,
     animationSpec: AnimationSpec<Float> = ChimpCardDefaults.flipAnimationSpec,
     cameraDistance: Dp = ChimpCardDefaults.cameraDistance,
     onClickLabel: String? = null
@@ -167,7 +173,8 @@ fun ChimpCardFlip(
                 onClickLabel = onClickLabel,
                 role = Role.Button,
                 onClick = { onFlippedChange(!flipped) }
-            )
+            ),
+        containerColor = if (showFront) frontColor else backColor
     ) {
         if (showFront) {
             Box(

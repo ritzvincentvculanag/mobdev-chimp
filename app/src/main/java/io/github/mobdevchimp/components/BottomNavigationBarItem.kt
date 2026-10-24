@@ -19,7 +19,17 @@ sealed class Screen(val route: String) {
     object EditDeck: Screen("edit_deck_screen/{deckId}") {
         fun createRoute(deckId: Int) = "edit_deck_screen/$deckId"
     }
-    object ReviewDeck: Screen("review_deck_screen/{deckId}") {
-        fun createRoute(deckId: Int) = "review_deck_screen/$deckId"
+    object AddCard: Screen("add_card_screen/{deckId}") {
+        fun createRoute(deckId: Int) = "add_card_screen/$deckId"
+    }
+    object EditCard: Screen("edit_card_screen/{deckId}/{cardId}") {
+        fun createRoute(deckId: Int, cardId: Int) = "edit_card_screen/$deckId/$cardId"
+    }
+    object ReviewDeck: Screen("review_deck_screen/{deckId}/{missedOnly}") {
+        fun createRoute(deckId: Int, missedOnly: Boolean = false) =
+            "review_deck_screen/$deckId/$missedOnly"
+    }
+    object SessionSummary: Screen("session_summary_screen/{deckId}") {
+        fun createRoute(deckId: Int) = "session_summary_screen/$deckId"
     }
 }
