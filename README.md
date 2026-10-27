@@ -14,12 +14,12 @@ Chimp takes a deliberately focused approach. Users create their own decks, revie
 - Deck and card creation. Users build custom decks organized by subject, with text on the front and back of each card.
 - Tap-to-flip review. Cards are studied one at a time using a simple flip interaction that mirrors physical flashcards.
 - Recall rating. Each card is marked as Got It or Review Again, and missed cards are re-queued within the same session.
-- Progress and streaks. The application tracks a daily study streak and displays mastered and pending cards for each deck.
+- Progress view. The dashboard shows a study streak and card counts, and each review session ends with a mastered-versus-missed summary.
 - Match game. A term-matching mini game provides an alternative and more engaging way to review a deck.
 
 **Supporting**
-- Deck management. Users can shuffle, rename, delete, and reset the progress of a deck.
-- Card editing. Individual cards within a deck can be updated or removed.
+- Deck management. Users can rename and delete decks.
+- Card editing. Individual cards within a deck can be added, updated, or removed.
 
 **Excluded from this release.** The following features are intentionally deferred or considered out of scope: account creation and cloud synchronization, deck sharing, spaced-repetition scheduling, image and audio support, and any form of advertising or paid tier. These boundaries keep the initial release simple and consistent with the offline-first goal.
 
@@ -28,8 +28,8 @@ Chimp takes a deliberately focused approach. Users create their own decks, revie
 - Kotlin
 - Jetpack Compose with Material 3 for the user interface
 - Gradle with the Kotlin DSL
-- Local on-device storage for decks and cards
-- ViewModel and Navigation Compose
+- Navigation Compose for moving between screens
+- A shared in-memory data store for decks and cards
 
 ## Requirements
 
