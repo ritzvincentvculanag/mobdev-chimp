@@ -57,3 +57,20 @@ val wolfGray300: Color = Color(0xFF656565)
 val eelBlack100: Color = Color(0xFF606060)
 val eelBlack200: Color = Color(0xFF4B4B4B)
 val eelBlack300: Color = Color(0xFF1A1A1A)
+
+// Brand ink and vibrant deck-card palette (added for the restyle)
+val chimpInk: Color = Color(0xFF2B2320)
+
+val deckPurple: Color = Color(0xFFB79DF2)
+val deckLime: Color = Color(0xFFC7E26B)
+val deckBlue: Color = Color(0xFF8FB7F5)
+val deckOrange: Color = Color(0xFFF6A96B)
+val deckPink: Color = Color(0xFFF2A0C4)
+val deckTeal: Color = Color(0xFF7FD1C1)
+
+val deckPalette: List<Color> = listOf(
+    deckPurple, deckLime, deckBlue, deckOrange, deckPink, deckTeal
+)
+
+val chimpAmber: Color = Color(0xFFF4A22B)
+val chimpAmberDark: Color = Color(0xFFD9861A)

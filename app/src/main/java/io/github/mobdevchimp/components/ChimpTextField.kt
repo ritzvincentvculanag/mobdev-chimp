@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.ui.theme.NunitoFontFamily
-import io.github.mobdevchimp.ui.theme.macawBlue300
+import io.github.mobdevchimp.ui.theme.chimpInk
 import io.github.mobdevchimp.ui.theme.wolfGray100
 
 
@@ -45,7 +45,7 @@ fun ChimpTextField(
     state: TextFieldState,
     placeholder: String = "",
     unfocusedBorderColor: Color = wolfGray100,
-    focusedBorderColor: Color = macawBlue300,
+    focusedBorderColor: Color = chimpInk,
     backgroundColor: Color = Color.White,
     placeholderColor: Color = wolfGray100,
     borderWidth: Dp = 2.dp,

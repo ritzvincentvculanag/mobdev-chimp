@@ -10,11 +10,12 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import io.github.mobdevchimp.ui.theme.macawBlue100
-import io.github.mobdevchimp.ui.theme.macawBlue200
-import io.github.mobdevchimp.ui.theme.macawBlue500
+import io.github.mobdevchimp.ui.theme.chimpInk
+import io.github.mobdevchimp.ui.theme.swanGray200
+import io.github.mobdevchimp.ui.theme.wolfGray100
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -37,12 +38,12 @@ fun BottomNavigationBar(navController: NavController) {
         )
     )
 
-    NavigationBar(containerColor = macawBlue100) {
+    NavigationBar(containerColor = Color.White) {
         navigationItems.forEach { item ->
             NavigationBarItem(
                 selected = currentRoute == item.route,
                 icon = { Icon(imageVector = item.icon, contentDescription = item.title) },
-                label = { Text(text = item.title )},
+                label = { Text(text = item.title) },
                 onClick = {
                     navController.navigate(item.route) {
                         popUpTo(Screen.Dashboard.route) {
@@ -53,11 +54,11 @@ fun BottomNavigationBar(navController: NavController) {
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = macawBlue500,
-                    selectedTextColor = macawBlue500,
-                    unselectedIconColor = macawBlue200,
-                    unselectedTextColor = macawBlue200,
-                    indicatorColor = macawBlue100,
+                    selectedIconColor = chimpInk,
+                    selectedTextColor = chimpInk,
+                    unselectedIconColor = wolfGray100,
+                    unselectedTextColor = wolfGray100,
+                    indicatorColor = swanGray200,
                 )
             )
         }
