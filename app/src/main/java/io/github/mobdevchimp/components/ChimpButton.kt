@@ -38,15 +38,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
-import io.github.mobdevchimp.ui.theme.macawBlue300
-import io.github.mobdevchimp.ui.theme.macawBlue500
+import io.github.mobdevchimp.ui.theme.chimpAmber
+import io.github.mobdevchimp.ui.theme.chimpAmberDark
+import io.github.mobdevchimp.ui.theme.chimpInk
 import io.github.mobdevchimp.ui.theme.swanGray300
 
 private object ChimpButtonDefaults {
     val radius: Dp = 12.dp
-    val foreground: Color = macawBlue300
-    val background: Color = macawBlue500
-    val textColor: Color = Color.White
+    val foreground: Color = chimpAmber
+    val background: Color = chimpAmberDark
+    val textColor: Color = chimpInk
     val onClick: () -> Unit = {}
     val icon: ImageVector? = null
     val size: Dp = 48.dp
@@ -80,7 +81,7 @@ private fun ChimpButtonContent(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = Color.White
+                tint = textColor
             )
             Spacer(modifier = Modifier.width(8.dp))
         }
@@ -178,7 +179,7 @@ fun ChimpButtonOutlined(
     background: Color = swanGray300,
     radius: Dp = ChimpButtonDefaults.radius,
     foreground: Color = Color.White,
-    textColor: Color = ChimpButtonDefaults.foreground,
+    textColor: Color = chimpInk,
     onClick: () -> Unit = ChimpButtonDefaults.onClick,
     icon: ImageVector? = ChimpButtonDefaults.icon
 ) {
