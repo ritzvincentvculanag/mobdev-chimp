@@ -21,7 +21,7 @@ import io.github.mobdevchimp.components.ChimpButton
 import io.github.mobdevchimp.components.Screen
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
 import io.github.mobdevchimp.components.ChimpBodyText
-import io.github.mobdevchimp.ui.theme.macawBlue300
+import io.github.mobdevchimp.ui.theme.chimpInk
 
 @Composable
 fun GetStartedScreen(
@@ -37,9 +37,9 @@ fun GetStartedScreen(
         Spacer(modifier = Modifier.weight(1f))
         Text(
             text = "Chimp",
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-            color = macawBlue300
+            fontSize = 40.sp,
+            fontWeight = FontWeight.ExtraBold,
+            color = chimpInk
         )
         Spacer(modifier = Modifier.height(16.dp))
         ChimpBodyText(

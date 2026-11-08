@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -41,7 +42,7 @@ fun DashboardScreen(navController: NavController) {
         val decks = Storage.getDecks()
 
         ChimpScreenHeader(title = "Dashboard")
-        DashboardAnalytics()
+        DashboardAnalytics(totalCards = decks.sumOf { it.cards.size })
         ChimpSectionTitle(text = "My Decks")
         DashboardDecks(
             decks = decks,
@@ -71,17 +72,19 @@ fun DashboardScreen(navController: NavController) {
 }
 
 @Composable
-private fun DashboardAnalytics() {
+private fun DashboardAnalytics(totalCards: Int) {
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         ChimpCardAnalytics(
             modifier = Modifier.weight(1f),
             value = 3,
-            title = "Day Streak"
+            title = "Day Streak",
+            containerColor = Color(0xFFFCE7D3)
         )
         ChimpCardAnalytics(
             modifier = Modifier.weight(1f),
-            value = 42,
-            title = "Total cards"
+            value = totalCards,
+            title = "Total cards",
+            containerColor = Color(0xFFEDE6FA)
         )
     }
 }
@@ -93,12 +96,13 @@ private fun DashboardDecks(
     onPlayClick: (Deck) -> Unit
 ) {
     LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        items(
+        itemsIndexed(
             items = decks,
-            key = { deck -> deck.id }
-        ) { deck ->
+            key = { _, deck -> deck.id }
+        ) { index, deck ->
             ChimpDeckItem(
                 title = deck.name,
+                index = index,
                 onCardClick = { onCardClick(deck) },
                 onPlayClick = { onPlayClick(deck) },
                 subtitle = "${deck.cards.size} ${if (deck.cards.size <= 1) "card" else "cards"}"

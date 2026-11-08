@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import io.github.mobdevchimp.components.ChimpButtonIcon
 import io.github.mobdevchimp.components.ChimpCardAnalytics
 import io.github.mobdevchimp.ui.theme.MobdevchimpTheme
-import io.github.mobdevchimp.ui.theme.macawBlue200
+import io.github.mobdevchimp.ui.theme.deckPurple
 import io.github.mobdevchimp.components.ChimpBodyText
 import io.github.mobdevchimp.ui.theme.eelBlack300
 
@@ -43,7 +43,7 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(140.dp)
-                    .background(macawBlue200)
+                    .background(deckPurple)
             )
             Column(
                 modifier = Modifier

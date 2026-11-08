@@ -16,15 +16,15 @@ private val provider = GoogleFont.Provider(
     certificates = R.array.com_google_android_gms_fonts_certs
 )
 
-private val nunito = GoogleFont("Nunito")
+private val roboto = GoogleFont("Roboto")
 
 val NunitoFontFamily = FontFamily(
-    Font(googleFont = nunito, fontProvider = provider, weight = FontWeight.Light),
-    Font(googleFont = nunito, fontProvider = provider, weight = FontWeight.Normal),
-    Font(googleFont = nunito, fontProvider = provider, weight = FontWeight.Medium),
-    Font(googleFont = nunito, fontProvider = provider, weight = FontWeight.SemiBold),
-    Font(googleFont = nunito, fontProvider = provider, weight = FontWeight.Bold),
-    Font(googleFont = nunito, fontProvider = provider, weight = FontWeight.ExtraBold)
+    Font(googleFont = roboto, fontProvider = provider, weight = FontWeight.Light),
+    Font(googleFont = roboto, fontProvider = provider, weight = FontWeight.Normal),
+    Font(googleFont = roboto, fontProvider = provider, weight = FontWeight.Medium),
+    Font(googleFont = roboto, fontProvider = provider, weight = FontWeight.SemiBold),
+    Font(googleFont = roboto, fontProvider = provider, weight = FontWeight.Bold),
+    Font(googleFont = roboto, fontProvider = provider, weight = FontWeight.ExtraBold)
 )
 
 val Typography = Typography(

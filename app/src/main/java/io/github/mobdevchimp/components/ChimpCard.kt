@@ -5,6 +5,7 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
@@ -34,8 +36,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.mobdevchimp.ui.theme.macawBlue500
 import io.github.mobdevchimp.ui.theme.swanGray300
+import io.github.mobdevchimp.ui.theme.chimpInk
 import io.github.mobdevchimp.ui.theme.swanGray100
 
 private object ChimpCardDefaults {
@@ -83,24 +85,27 @@ fun ChimpCardContainer(
 fun ChimpCardAnalytics(
     value: Number,
     title: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    containerColor: Color = Color(0xFFF1ECF9)
 ) {
-    ChimpCardContainer(modifier = modifier) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            Text(
-                text = value.toString(),
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                color = macawBlue500
-            )
-            ChimpBodyText(
-                text = title.uppercase(),
-                fontWeight = FontWeight.Bold
-            )
-        }
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(16.dp))
+            .background(containerColor)
+            .padding(vertical = 16.dp, horizontal = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        Text(
+            text = value.toString(),
+            fontWeight = FontWeight.ExtraBold,
+            fontSize = 26.sp,
+            color = chimpInk
+        )
+        ChimpBodyText(
+            text = title.uppercase(),
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
