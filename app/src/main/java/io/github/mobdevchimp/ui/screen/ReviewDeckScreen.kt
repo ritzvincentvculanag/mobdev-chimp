@@ -117,10 +117,11 @@ fun ReviewDeckScreen(
                 )
                 key(card.id) {
                     ChimpCardFlip(
+                        flipped = isFlipped,
+                        onFlippedChange = { isFlipped = it },
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f),
-                        onFlippedChange = { isFlipped = it },
                         frontColor = beeYellow100,
                         backColor = beeYellow300,
                         front = {
@@ -140,8 +141,10 @@ fun ReviewDeckScreen(
                             text = "Review Again",
                             modifier = Modifier.weight(1f),
                             onClick = {
-                                missedCards.add(card)
-                                cardIndex++
+                                if (!missedCards.contains(card)) {
+                                    missedCards.add(card)
+                                }
+                                isFlipped = false
                             }
                         )
                         ChimpButton(
